@@ -19,5 +19,7 @@ namespace websiteSPcongnghe.Data
         public DbSet<websiteSPcongnghe.Models.Danhmuc>? Danhmuc { get; set; }
 
         public DbSet<websiteSPcongnghe.Models.Thuonghieu>? Thuonghieu { get; set; }
+
+        public DbSet<websiteSPcongnghe.Models.DanhsachBanner>? DanhsachBanner { get; set; }
     }
 }
