@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -57,10 +58,11 @@ namespace websiteSPcongnghe.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DanhsachBannerID,Banner")] DanhsachBanner danhsachBanner)
+        public async Task<IActionResult> Create(IFormFile file, [Bind("DanhsachBannerID,Banner")] DanhsachBanner danhsachBanner)
         {
             if (ModelState.IsValid)
             {
+                danhsachBanner.Banner = Upload(file);
                 _context.Add(danhsachBanner);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -89,7 +91,7 @@ namespace websiteSPcongnghe.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DanhsachBannerID,Banner")] DanhsachBanner danhsachBanner)
+        public async Task<IActionResult> Edit(int id, IFormFile file, [Bind("DanhsachBannerID,Banner")] DanhsachBanner danhsachBanner)
         {
             if (id != danhsachBanner.DanhsachBannerID)
             {
@@ -100,6 +102,10 @@ namespace websiteSPcongnghe.Areas.Admin.Controllers
             {
                 try
                 {
+                    if (file != null)
+                    {
+                        danhsachBanner.Banner = Upload(file);
+                    }
                     _context.Update(danhsachBanner);
                     await _context.SaveChangesAsync();
                 }
@@ -159,6 +165,24 @@ namespace websiteSPcongnghe.Areas.Admin.Controllers
         private bool DanhsachBannerExists(int id)
         {
           return (_context.DanhsachBanner?.Any(e => e.DanhsachBannerID == id)).GetValueOrDefault();
+        }
+
+        public string Upload(IFormFile file)
+        {
+            string fn = null;
+
+            if (file != null)
+            {
+                // Phát sinh tên mới cho file để tránh trùng tên
+                fn = Guid.NewGuid().ToString() + "_" + file.FileName;
+                var path = $"wwwroot\\images\\banners\\{fn}"; // đường dẫn lưu file
+                // upload file lên đường dẫn chỉ định
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
+            }
+            return fn;
         }
     }
 }

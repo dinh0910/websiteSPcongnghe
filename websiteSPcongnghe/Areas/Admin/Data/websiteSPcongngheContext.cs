@@ -21,5 +21,9 @@ namespace websiteSPcongnghe.Data
         public DbSet<websiteSPcongnghe.Models.Thuonghieu>? Thuonghieu { get; set; }
 
         public DbSet<websiteSPcongnghe.Models.DanhsachBanner>? DanhsachBanner { get; set; }
+
+        public DbSet<websiteSPcongnghe.Models.Sanpham>? Sanpham { get; set; }
+
+        public DbSet<websiteSPcongnghe.Models.Taikhoan>? Taikhoan { get; set; }
     }
 }

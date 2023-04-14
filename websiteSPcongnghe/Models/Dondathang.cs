@@ -3,6 +3,7 @@
     public class Dondathang
     {
         public int DondathangID { get; set; }
+
         public string? HovaTen { get; set; }
 
         public string? Diachi { get; set; }
