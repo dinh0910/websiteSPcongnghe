@@ -32,9 +32,9 @@ namespace websiteSPcongnghe.Migrations
                     ThuongHieuID = table.Column<int>(type: "int", nullable: false),
                     Hinhanh = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Dongia = table.Column<int>(type: "int", nullable: false),
-                    Sale = table.Column<int>(type: "int", nullable: false),
+                    Sale = table.Column<int>(type: "int", nullable: true),
                     Thanhtien = table.Column<int>(type: "int", nullable: false),
-                    Soluong = table.Column<int>(type: "int", nullable: false)
+                    Soluong = table.Column<int>(type: "int", nullable: true, defaultValue: 0)
                 },
                 constraints: table =>
                 {

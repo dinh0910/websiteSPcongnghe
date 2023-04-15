@@ -13,42 +13,32 @@
         <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Tensanpham" class="control-label"></label>
+                <label class="control-label">Tên sản phẩm</label>
                 <input asp-for="Tensanpham" class="form-control" />
-                <span asp-validation-for="Tensanpham" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DanhMucID" class="control-label"></label>
-                <select asp-for="DanhMucID" class ="form-control" asp-items="ViewBag.DanhMucID"></select>
+                <label class="control-label">Danh mục</label>
+                <select asp-for="DanhmucID" class ="form-control" asp-items="ViewBag.DanhmucID"></select>
             </div>
             <div class="form-group">
-                <label asp-for="ThuongHieuID" class="control-label"></label>
-                <select asp-for="ThuongHieuID" class ="form-control" asp-items="ViewBag.ThuongHieuID"></select>
+                <label class="control-label">Thương hiệu</label>
+                <select asp-for="ThuonghieuID" class="form-control" asp-items="ViewBag.ThuonghieuID"></select>
             </div>
             <div class="form-group">
-                <label asp-for="Hinhanh" class="control-label"></label>
+                <label class="control-label">Hình ảnh</label>
                 <input type="file" name="file" asp-for="Hinhanh" class="form-control" />
-                <span asp-validation-for="Hinhanh" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Dongia" class="control-label"></label>
-                <input asp-for="Dongia" class="form-control" />
-                <span asp-validation-for="Dongia" class="text-danger"></span>
+                <label class="control-label">Đơn giá</label>
+                <input asp-for="Dongia" id="dg" class="form-control" oninput="tinh();" />
             </div>
             <div class="form-group">
-                <label asp-for="Sale" class="control-label"></label>
-                <input asp-for="Sale" class="form-control" />
-                <span asp-validation-for="Sale" class="text-danger"></span>
+                <label class="control-label">Sale (%)</label>
+                <input asp-for="Sale" id="sale" value="0" class="form-control" oninput="tinh();" />
             </div>
             <div class="form-group">
-                <label asp-for="Thanhtien" class="control-label"></label>
-                <input asp-for="Thanhtien" class="form-control" />
-                <span asp-validation-for="Thanhtien" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Soluong" class="control-label"></label>
-                <input asp-for="Soluong" class="form-control" />
-                <span asp-validation-for="Soluong" class="text-danger"></span>
+                <label class="control-label">Thành tiền</label>
+                <input type="hidden" asp-for="Thanhtien" id="ThanhTien" class="form-control" />
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -62,5 +52,11 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        function tinh() {
+            var donGia = document.getElementById("dg").value;
+            var giamGia = document.getElementById("sale").value;
+            document.getElementById("ThanhTien").value = donGia - (donGia * (giamGia / 100));
+        }
+    </script>
 }

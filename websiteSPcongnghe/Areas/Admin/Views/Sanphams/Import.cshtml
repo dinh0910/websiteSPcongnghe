@@ -1,1 +1,101 @@
-﻿
+﻿@model List<websiteSPcongnghe.Models.CartImport>
+
+@{
+    int amount = 0;
+    int total = 0;
+}
+<form asp-action="CreateBill">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Chọn nhà cung cấp: </h6>
+            <select name="NhacungcapID" class="form-control" asp-items="ViewBag.NhacungcapID"></select>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>
+                            Tên sản phẩm
+                        </th>
+                        <th>
+                            Hình ảnh
+                        </th>
+                        <th>
+                            Đơn vị tính
+                        </th>
+                        <th>
+                            Đơn giá
+                        </th>
+                        <th>
+                            Số lượng
+                        </th>
+                        <th>
+                            Thành tiền
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        amount = item.Sanphams.Thanhtien * item.Soluong;
+                        total += amount;
+                        <tr>
+                            <td>
+                                <a class="btn btn-success btn-circle updatecartitem" data-productid="@item.Sanphams.SanphamID">
+                                    <i class="fas fa-check"></i>
+                                </a>
+                                <a asp-action="RemoveItem" asp-route-id="@item.Sanphams.SanphamID" class="btn btn-danger btn-circle">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Sanphams.Tensanpham)
+                            </td>
+                            <td>
+                                <img src="~/images/products/@Html.DisplayFor(modelItem => item.Sanphams.Hinhanh)" class="img-thumbnail" width="150" height="100" />
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Donvitinh.Ten)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Sanphams.Dongia)
+                            </td>
+                            <td>
+                                <input asp-for="@item.Soluong" id="@($"quantity-{item.Sanphams.SanphamID}")" />
+                            </td>
+                            <td>
+                                @(amount.ToString("n0")) đ
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div>Thành tiền: @(amount.ToString("n0")) đ</div>
+            <button type="submit" class="btn btn-warning">Nhập hàng</button>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $(".updatecartitem").click(function (event) {
+                event.preventDefault();
+                var productid = $(this).attr("data-productid");
+                var quantity = $("#quantity-" + productid).val();
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.RouteUrl("updateitem")",
+                    data: {
+                        id: productid,
+                        quantity: quantity
+                    },
+                    success: function (result) {
+                        window.location.href = "@Url.RouteUrl("import")";
+                    }
+                });
+            });
+        });
+    </script>
+}

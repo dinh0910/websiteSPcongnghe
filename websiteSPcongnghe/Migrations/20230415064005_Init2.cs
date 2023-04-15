@@ -8,10 +8,6 @@ namespace websiteSPcongnghe.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "Ten",
-                table: "Sanpham");
-
             migrationBuilder.CreateTable(
                 name: "Donvitinh",
                 columns: table => new
@@ -46,12 +42,6 @@ namespace websiteSPcongnghe.Migrations
 
             migrationBuilder.DropTable(
                 name: "Nhacungcap");
-
-            migrationBuilder.AddColumn<string>(
-                name: "Ten",
-                table: "Sanpham",
-                type: "nvarchar(max)",
-                nullable: true);
         }
     }
 }

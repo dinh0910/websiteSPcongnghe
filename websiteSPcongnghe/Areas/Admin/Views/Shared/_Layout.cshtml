@@ -42,6 +42,8 @@
     <script src="~/jquery/jquery.min.js"></script>
     <script src="~/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+    <script src=@("https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js") integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+
     <!-- Core plugin JavaScript-->
     <script src="~/jquery-easing/jquery.easing.min.js"></script>
     <script src="~/js/sb-admin-2.min.js"></script>
@@ -52,6 +54,8 @@
     <script src="~/js/datatables-demo.js"></script>
 
     <script src="https://kit.fontawesome.com/819401a432.js" crossorigin="anonymous"></script>
+
+
 
     @await Component.InvokeAsync("Notyf")
     @await RenderSectionAsync("Scripts", required: false)

@@ -1,7 +1,11 @@
-﻿@model IEnumerable<websiteSPcongnghe.Models.Sanpham>
+﻿@using Newtonsoft.Json
+@inject IHttpContextAccessor HttpContextAccessor
+@model IEnumerable<websiteSPcongnghe.Models.Sanpham>
 
 @{
     ViewData["Title"] = "Index";
+    int i = 0;
+    int j = 0;
 }
 
 <div class="my-5">
@@ -11,12 +15,28 @@
         </span>
         <span class="text">Nhập hàng</span>
     </a>
-    <a class="btn btn-info btn-icon-info">
-        <span class="icon text-white-50">
-            <i class="fas fa-arrow-info"></i>
-        </span>
-        <span class="text">Danh sách nhập</span>
-    </a>
+    @{
+        var session = HttpContextAccessor.HttpContext.Session;
+        string jsoncart = session.GetString(websiteSPcongnghe.Areas.Admin.Controllers.SanphamsController.LISTIMPORT);
+        if (jsoncart != null)
+        {
+            var cart = JsonConvert.DeserializeObject<List<CartImport>>(jsoncart);
+            @if (cart.Count > 0)
+            {
+                <a asp-controller="Sanphams" asp-action="Import" class="btn btn-info position-relative" role="button">
+                    Danh sách nhập
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        <span>@cart.Count</span>
+                    </span>
+                </a>
+            } else
+            {
+                <a asp-controller="Sanphams" asp-action="Import" class="btn btn-light disabled" role="button">
+                    Danh sách nhập
+                </a>
+            }
+        }
+    }
 </div>
 
 <div class="modal fade" id="modalCreate" tabindex="-1" aria-labelledby="modalCreateLabel" aria-hidden="true">
@@ -33,15 +53,15 @@
                     <form asp-action="AddToCart">
                         <div class="form-group">
                             <label class="control-label">Sản phẩm</label>
-                            <select name="SanphamID" class="form-control" asp-items="ViewBag.SanphamID"></select>
+                            <select name="SanphamID" class="form-control" asp-items="ViewBag.SanphamID" required></select>
                         </div>
                         <div class="form-group">
                             <label class="control-label">Đơn vị tính</label>
-                            <select name="DonvitinhID" class="form-control" asp-items="ViewBag.DonvitinhID"></select>
+                            <select name="DonvitinhID" class="form-control" asp-items="ViewBag.DonvitinhID" required></select>
                         </div>
                         <div class="form-group mb-3">
                             <label class="control-label mb-1">Số lượng</label>
-                            <input type="number" name="Soluong" class="form-control" />
+                            <input type="number" name="Soluong" class="form-control" required />
                         </div>
                         <div class="form-group">
                             <input type="submit" value="Nhập" class="btn btn-primary" />
@@ -61,6 +81,7 @@
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
                 <tr>
+                    <th>STT</th>
                     <th>
                         Tên sản phẩm
                     </th>
@@ -77,6 +98,7 @@
                 @foreach (var item in Model)
                 {
                     <tr>
+                        <td>@(j++)</td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Tensanpham)
                         </td>

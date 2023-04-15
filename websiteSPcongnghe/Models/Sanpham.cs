@@ -9,10 +9,10 @@ namespace websiteSPcongnghe.Models
 
         public string? Tensanpham { get; set; }
 
-        public int DanhMucID { get; set; }
+        public int DanhmucID { get; set; }
         public Danhmuc? Danhmucs { get; set; }
 
-        public int ThuongHieuID { get; set; }
+        public int ThuonghieuID { get; set; }
         public Thuonghieu? Thuonghieus { get; set; }
 
         public string? Hinhanh { get; set; }

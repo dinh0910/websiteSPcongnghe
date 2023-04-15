@@ -31,8 +31,8 @@ namespace websiteSPcongnghe.Areas.Admin.Controllers
         // GET: Admin/Sanphams/Create
         public IActionResult Create()
         {
-            ViewData["DanhMucID"] = new SelectList(_context.Danhmuc, "DanhmucID", "DanhmucID");
-            ViewData["ThuongHieuID"] = new SelectList(_context.Thuonghieu, "ThuonghieuID", "ThuonghieuID");
+            ViewData["DanhmucID"] = new SelectList(_context.Danhmuc, "DanhmucID", "Tendanhmuc");
+            ViewData["ThuonghieuID"] = new SelectList(_context.Thuonghieu, "ThuonghieuID", "Tenthuonghieu");
             return View();
         }
 
@@ -41,7 +41,7 @@ namespace websiteSPcongnghe.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(IFormFile file, [Bind("SanphamID,Tensanpham,DanhMucID,ThuongHieuID,Hinhanh,Dongia,Sale,Thanhtien,Soluong")] Sanpham sanpham)
+        public async Task<IActionResult> Create(IFormFile file, [Bind("SanphamID,Tensanpham,DanhmucID,ThuonghieuID,Hinhanh,Dongia,Sale,Thanhtien")] Sanpham sanpham)
         {
             if (ModelState.IsValid)
             {
@@ -50,8 +50,8 @@ namespace websiteSPcongnghe.Areas.Admin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DanhMucID"] = new SelectList(_context.Danhmuc, "DanhmucID", "DanhmucID", sanpham.DanhMucID);
-            ViewData["ThuongHieuID"] = new SelectList(_context.Thuonghieu, "ThuonghieuID", "ThuonghieuID", sanpham.ThuongHieuID);
+            ViewData["DanhmucID"] = new SelectList(_context.Danhmuc, "DanhmucID", "Tendanhmuc", sanpham.DanhmucID);
+            ViewData["ThuonghieuID"] = new SelectList(_context.Thuonghieu, "ThuonghieuID", "Tenthuonghieu", sanpham.ThuonghieuID);
             return View(sanpham);
         }
 
@@ -68,8 +68,8 @@ namespace websiteSPcongnghe.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            ViewData["DanhMucID"] = new SelectList(_context.Danhmuc, "DanhmucID", "Ten", sanpham.DanhMucID);
-            ViewData["ThuongHieuID"] = new SelectList(_context.Thuonghieu, "ThuonghieuID", "Ten", sanpham.ThuongHieuID);
+            ViewData["DanhmucID"] = new SelectList(_context.Danhmuc, "DanhmucID", "Tendanhmuc", sanpham.DanhmucID);
+            ViewData["ThuonghieuID"] = new SelectList(_context.Thuonghieu, "ThuonghieuID", "Tenthuonghieu", sanpham.ThuonghieuID);
             return View(sanpham);
         }
 
@@ -78,7 +78,7 @@ namespace websiteSPcongnghe.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, IFormFile file, [Bind("SanphamID,Tensanpham,DanhMucID,ThuongHieuID,Hinhanh,Dongia,Sale,Thanhtien,Soluong")] Sanpham sanpham)
+        public async Task<IActionResult> Edit(int id, IFormFile file, [Bind("SanphamID,Tensanpham,DanhmucID,ThuonghieuID,Hinhanh,Dongia,Sale,Thanhtien")] Sanpham sanpham)
         {
             if (id != sanpham.SanphamID)
             {
@@ -109,8 +109,8 @@ namespace websiteSPcongnghe.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DanhMucID"] = new SelectList(_context.Danhmuc, "DanhmucID", "Ten", sanpham.DanhMucID);
-            ViewData["ThuongHieuID"] = new SelectList(_context.Thuonghieu, "ThuonghieuID", "Ten", sanpham.ThuongHieuID);
+            ViewData["DanhmucID"] = new SelectList(_context.Danhmuc, "DanhmucID", "Tendanhmuc", sanpham.DanhmucID);
+            ViewData["ThuonghieuID"] = new SelectList(_context.Thuonghieu, "ThuonghieuID", "Tenthuonghieu", sanpham.ThuonghieuID);
             return View(sanpham);
         }
 
@@ -181,8 +181,8 @@ namespace websiteSPcongnghe.Areas.Admin.Controllers
         public async Task<IActionResult> Stored()
         {
             var websiteSPcongngheContext = _context.Sanpham;
-            ViewData["SanPhamID"] = new SelectList(_context.Sanpham, "SanPhamID", "Ten");
-            ViewData["DonViTinhID"] = new SelectList(_context.Donvitinh, "DonViTinhID", "Ten");
+            ViewData["SanphamID"] = new SelectList(_context.Sanpham, "SanphamID", "Tensanpham");
+            ViewData["DonvitinhID"] = new SelectList(_context.Donvitinh, "DonvitinhID", "Ten");
             return View(await websiteSPcongngheContext.ToListAsync());
         }
 
@@ -213,11 +213,11 @@ namespace websiteSPcongnghe.Areas.Admin.Controllers
         public async Task<IActionResult> AddToCart([Bind("SanphamID,DonvitinhID,Soluong")] CartImport importItem)
         {
             var product = await _context.Sanpham
-                .FirstOrDefaultAsync(m => m.SanphamID == importItem.Sanphams.SanphamID);
+                .FirstOrDefaultAsync(m => m.SanphamID == importItem.SanphamID);
             var dvt = await _context.Donvitinh
-                .FirstOrDefaultAsync(m => m.DonvitinhID == importItem.Donvitinh.DonvitinhID);
+                .FirstOrDefaultAsync(m => m.DonvitinhID == importItem.DonvitinhID);
             var cart = GetCartItems();
-            var item = cart.Find(p => p.Sanphams.SanphamID == importItem.Sanphams.SanphamID);
+            var item = cart.Find(p => p.Sanphams.SanphamID == importItem.SanphamID);
             if (item != null)
             {
                 item.Soluong += importItem.Soluong;
@@ -241,7 +241,7 @@ namespace websiteSPcongnghe.Areas.Admin.Controllers
             }
             item.Soluong = quantity;
             SaveCartSession(cart);
-            return RedirectToAction(nameof(ViewImport));
+            return RedirectToAction(nameof(Import));
         }
 
         public async Task<IActionResult> RemoveItem(int id)
@@ -253,13 +253,13 @@ namespace websiteSPcongnghe.Areas.Admin.Controllers
                 cart.Remove(item);
             }
             SaveCartSession(cart);
-            return RedirectToAction(nameof(ViewImport));
+            return RedirectToAction(nameof(Import));
         }
 
-        [Route("/viewimport", Name = "import")]
-        public IActionResult ViewImport()
+        [Route("/import", Name = "import")]
+        public IActionResult Import()
         {
-            ViewData["NhaCungCapID"] = new SelectList(_context.Nhacungcap, "NhaCungCapID", "Ten");
+            ViewData["NhacungcapID"] = new SelectList(_context.Nhacungcap, "NhacungcapID", "Ten");
             return View(GetCartItems());
         }
 
