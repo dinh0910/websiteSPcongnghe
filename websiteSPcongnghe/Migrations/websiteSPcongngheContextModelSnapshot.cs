@@ -53,6 +53,38 @@ namespace websiteSPcongnghe.Migrations
                     b.ToTable("DanhsachBanner");
                 });
 
+            modelBuilder.Entity("websiteSPcongnghe.Models.Donvitinh", b =>
+                {
+                    b.Property<int>("DonvitinhID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DonvitinhID"), 1L, 1);
+
+                    b.Property<string>("Ten")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("DonvitinhID");
+
+                    b.ToTable("Donvitinh");
+                });
+
+            modelBuilder.Entity("websiteSPcongnghe.Models.Nhacungcap", b =>
+                {
+                    b.Property<int>("NhacungcapID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NhacungcapID"), 1L, 1);
+
+                    b.Property<string>("Ten")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("NhacungcapID");
+
+                    b.ToTable("Nhacungcap");
+                });
+
             modelBuilder.Entity("websiteSPcongnghe.Models.Quyenhan", b =>
                 {
                     b.Property<int>("QuyenhanID")
@@ -91,9 +123,6 @@ namespace websiteSPcongnghe.Migrations
 
                     b.Property<int>("Soluong")
                         .HasColumnType("int");
-
-                    b.Property<string>("Ten")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Tensanpham")
                         .HasColumnType("nvarchar(max)");

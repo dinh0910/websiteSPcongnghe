@@ -15,6 +15,8 @@
     {
         public Sanpham? Sanphams { get; set; }
 
+        public Donvitinh? Donvitinh { get; set; }
+
         public int Soluong { get; set; }
     }
 }

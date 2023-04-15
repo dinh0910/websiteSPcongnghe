@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,10 +15,12 @@ namespace websiteSPcongnghe.Areas.Admin.Controllers
     public class DanhmucsController : Controller
     {
         private readonly websiteSPcongngheContext _context;
+        private readonly INotyfService _notifyService;
 
-        public DanhmucsController(websiteSPcongngheContext context)
+        public DanhmucsController(websiteSPcongngheContext context, INotyfService notyfService)
         {
             _context = context;
+            _notifyService = notyfService;
         }
 
         // GET: Admin/Danhmucs
@@ -44,6 +47,7 @@ namespace websiteSPcongnghe.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(danhmuc);
+                _notifyService.Error("Thêm danh mục thành công!");
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

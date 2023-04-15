@@ -1,0 +1,48 @@
+﻿@model IEnumerable<websiteSPcongnghe.Models.Nhacungcap>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="my-5">
+    <a asp-action="Create" class="btn btn-secondary btn-icon-split">
+        <span class="icon text-white-50">
+            <i class="fas fa-arrow-right"></i>
+        </span>
+        <span class="text">Thêm nhà cung cấp</span>
+    </a>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách Nhà cung cấp</h6>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Ten)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Ten)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.NhacungcapID">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.NhacungcapID">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.NhacungcapID">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>

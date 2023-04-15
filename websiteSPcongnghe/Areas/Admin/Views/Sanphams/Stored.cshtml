@@ -1,0 +1,98 @@
+﻿@model IEnumerable<websiteSPcongnghe.Models.Sanpham>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="my-5">
+    <a role="button" data-bs-toggle="modal" data-bs-target="#modalCreate" class="btn btn-secondary btn-icon-split">
+        <span class="icon text-white-50">
+            <i class="fas fa-arrow-right"></i>
+        </span>
+        <span class="text">Nhập hàng</span>
+    </a>
+    <a class="btn btn-info btn-icon-info">
+        <span class="icon text-white-50">
+            <i class="fas fa-arrow-info"></i>
+        </span>
+        <span class="text">Danh sách nhập</span>
+    </a>
+</div>
+
+<div class="modal fade" id="modalCreate" tabindex="-1" aria-labelledby="modalCreateLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="text-center mb-2">
+                    <span class="fw-bold fs-3" style="color:#7fad39">Nhập hàng</span>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="p-2">
+                    <form asp-action="AddToCart">
+                        <div class="form-group">
+                            <label class="control-label">Sản phẩm</label>
+                            <select name="SanphamID" class="form-control" asp-items="ViewBag.SanphamID"></select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Đơn vị tính</label>
+                            <select name="DonvitinhID" class="form-control" asp-items="ViewBag.DonvitinhID"></select>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="control-label mb-1">Số lượng</label>
+                            <input type="number" name="Soluong" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Nhập" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách Sản phẩm</h6>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>
+                        Tên sản phẩm
+                    </th>
+                    <th>
+                        Hình ảnh
+                    </th>
+                    <th>
+                        Số lượng
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Tensanpham)
+                        </td>
+                        <td>
+                            <img src="~/images/products/@Html.DisplayFor(modelItem => item.Hinhanh)" class="img-thumbnail" width="150" height="100" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Soluong)
+                        </td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@item.SanphamID">Details</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>

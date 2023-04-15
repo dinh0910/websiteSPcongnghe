@@ -6,11 +6,11 @@
 
     public class TaiKhoanLogin
     {
-        public string? TenTaiKhoan { get; set; }
+        public string? Tendangnhap { get; set; }
 
-        public string MatKhau { get; set; }
+        public string Matkhau { get; set; }
 
-        public string? HoTen { get; set; }
+        public string? HovaTen { get; set; }
 
         internal static Task SignOutAsync()
         {
