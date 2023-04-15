@@ -15,8 +15,6 @@ namespace websiteSPcongnghe.Models
         public int ThuongHieuID { get; set; }
         public Thuonghieu? Thuonghieus { get; set; }
 
-        public string? Ten { get; set; }
-
         public string? Hinhanh { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:#,##0} đ")]

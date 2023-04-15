@@ -4,22 +4,25 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<div class="my-5">
+    <a href="#" class="btn btn-secondary btn-icon-split">
+        <span class="icon text-white-50">
+            <i class="fas fa-arrow-right"></i>
+        </span>
+        <span class="text">Thêm banner</span>
+    </a>
+</div>
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách Banner</h6>
     </div>
     <div class="card-body">
-        <table class="table">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Banner)
+                        Banner
                     </th>
                     <th></th>
                 </tr>
@@ -29,11 +32,10 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Banner)
+                            <img src="~/images/banners/@Html.DisplayFor(modelItem => item.Banner)" class="img-thumbnail" width="200" height="150" />
                         </td>
                         <td>
                             <a asp-action="Edit" asp-route-id="@item.DanhsachBannerID">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.DanhsachBannerID">Details</a> |
                             <a asp-action="Delete" asp-route-id="@item.DanhsachBannerID">Delete</a>
                         </td>
                     </tr>

@@ -29,24 +29,6 @@ namespace websiteSPcongnghe.Areas.Admin.Controllers
                           Problem("Entity set 'websiteSPcongngheContext.DanhsachBanner'  is null.");
         }
 
-        // GET: Admin/Banners/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.DanhsachBanner == null)
-            {
-                return NotFound();
-            }
-
-            var danhsachBanner = await _context.DanhsachBanner
-                .FirstOrDefaultAsync(m => m.DanhsachBannerID == id);
-            if (danhsachBanner == null)
-            {
-                return NotFound();
-            }
-
-            return View(danhsachBanner);
-        }
-
         // GET: Admin/Banners/Create
         public IActionResult Create()
         {

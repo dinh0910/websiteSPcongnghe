@@ -37,17 +37,31 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" asp-controller="Banners" asp-action="Index">Banner</a>
                 <a class="collapse-item" asp-controller="Danhmucs" asp-action="Index">Danh mục</a>
                 <a class="collapse-item" asp-controller="Thuonghieus" asp-action="Index">Thương hiệu</a>
-                <a class="collapse-item" asp-controller="Donvitinhs" asp-action="Index">Đơn vị tính</a>
-                <a class="collapse-item" asp-controller="Banners" asp-action="Index">Banner</a>
-                <a class="collapse-item" href="cards.html">Nhà cung cấp</a>
                 <a class="collapse-item" asp-controller="Sanphams" asp-action="Index">Sản phẩm</a>
             </div>
         </div>
     </li>
 
-    <!-- Nav Item - Utilities Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStorage"
+           aria-expanded="true" aria-controls="collapseUtilities">
+            <i class="fas fa-fw fa-wrench"></i>
+            <span>Quản lý kho</span>
+        </a>
+        <div id="collapseStorage" class="collapse" aria-labelledby="headingUtilities"
+             data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" asp-controller="Donvitinhs" asp-action="Index">Đơn vị tính</a>
+                <a class="collapse-item" href="utilities-border.html">Nhà cung cấp</a>
+                <a class="collapse-item" href="utilities-border.html">Nhập hàng</a>
+                <a class="collapse-item" href="utilities-border.html">Lịch sử nhập hàng</a>
+            </div>
+        </div>
+    </li>
+
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
            aria-expanded="true" aria-controls="collapseUtilities">

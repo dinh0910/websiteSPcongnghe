@@ -60,7 +60,7 @@ namespace websiteSPcongnghe.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SanphamID,Tensanpham,DanhMucID,ThuongHieuID,Ten,Hinhanh,Dongia,Sale,Thanhtien,Soluong")] Sanpham sanpham)
+        public async Task<IActionResult> Create([Bind("SanphamID,Tensanpham,DanhMucID,ThuongHieuID,Hinhanh,Dongia,Sale,Thanhtien,Soluong")] Sanpham sanpham)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +96,7 @@ namespace websiteSPcongnghe.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SanphamID,Tensanpham,DanhMucID,ThuongHieuID,Ten,Hinhanh,Dongia,Sale,Thanhtien,Soluong")] Sanpham sanpham)
+        public async Task<IActionResult> Edit(int id, [Bind("SanphamID,Tensanpham,DanhMucID,ThuongHieuID,Hinhanh,Dongia,Sale,Thanhtien,Soluong")] Sanpham sanpham)
         {
             if (id != sanpham.SanphamID)
             {

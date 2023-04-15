@@ -28,24 +28,6 @@ namespace websiteSPcongnghe.Areas.Admin.Controllers
                           Problem("Entity set 'websiteSPcongngheContext.Quyenhan'  is null.");
         }
 
-        // GET: Admin/Quyenhans/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.Quyenhan == null)
-            {
-                return NotFound();
-            }
-
-            var quyenhan = await _context.Quyenhan
-                .FirstOrDefaultAsync(m => m.QuyenhanID == id);
-            if (quyenhan == null)
-            {
-                return NotFound();
-            }
-
-            return View(quyenhan);
-        }
-
         // GET: Admin/Quyenhans/Create
         public IActionResult Create()
         {

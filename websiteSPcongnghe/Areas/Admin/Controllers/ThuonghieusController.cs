@@ -28,24 +28,6 @@ namespace websiteSPcongnghe.Areas.Admin.Controllers
                           Problem("Entity set 'websiteSPcongngheContext.Thuonghieu'  is null.");
         }
 
-        // GET: Admin/Thuonghieus/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.Thuonghieu == null)
-            {
-                return NotFound();
-            }
-
-            var thuonghieu = await _context.Thuonghieu
-                .FirstOrDefaultAsync(m => m.ThuonghieuID == id);
-            if (thuonghieu == null)
-            {
-                return NotFound();
-            }
-
-            return View(thuonghieu);
-        }
-
         // GET: Admin/Thuonghieus/Create
         public IActionResult Create()
         {

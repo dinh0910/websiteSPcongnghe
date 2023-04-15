@@ -30,7 +30,6 @@ namespace websiteSPcongnghe.Migrations
                     Tensanpham = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DanhMucID = table.Column<int>(type: "int", nullable: false),
                     ThuongHieuID = table.Column<int>(type: "int", nullable: false),
-                    Ten = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Hinhanh = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Dongia = table.Column<int>(type: "int", nullable: false),
                     Sale = table.Column<int>(type: "int", nullable: false),

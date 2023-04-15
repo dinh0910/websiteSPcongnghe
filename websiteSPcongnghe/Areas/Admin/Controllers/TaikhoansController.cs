@@ -27,25 +27,6 @@ namespace websiteSPcongnghe.Areas.Admin.Controllers
             return View(await websiteSPcongngheContext.ToListAsync());
         }
 
-        // GET: Admin/Taikhoans/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.Taikhoan == null)
-            {
-                return NotFound();
-            }
-
-            var taikhoan = await _context.Taikhoan
-                .Include(t => t.Quyenhans)
-                .FirstOrDefaultAsync(m => m.TaikhoanID == id);
-            if (taikhoan == null)
-            {
-                return NotFound();
-            }
-
-            return View(taikhoan);
-        }
-
         // GET: Admin/Taikhoans/Create
         public IActionResult Create()
         {

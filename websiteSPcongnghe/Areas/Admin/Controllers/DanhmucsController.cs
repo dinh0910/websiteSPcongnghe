@@ -28,24 +28,6 @@ namespace websiteSPcongnghe.Areas.Admin.Controllers
                           Problem("Entity set 'websiteSPcongngheContext.Danhmuc'  is null.");
         }
 
-        // GET: Admin/Danhmucs/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.Danhmuc == null)
-            {
-                return NotFound();
-            }
-
-            var danhmuc = await _context.Danhmuc
-                .FirstOrDefaultAsync(m => m.DanhmucID == id);
-            if (danhmuc == null)
-            {
-                return NotFound();
-            }
-
-            return View(danhmuc);
-        }
-
         // GET: Admin/Danhmucs/Create
         public IActionResult Create()
         {

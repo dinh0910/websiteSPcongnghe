@@ -10,12 +10,13 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="DanhsachBannerID" />
             <div class="form-group">
                 <label asp-for="Banner" class="control-label"></label>
-                <input asp-for="Banner" class="form-control" />
+                <input type="file" name="file" asp-for="Banner" class="form-control" />
+                <input type="hidden" asp-for="Banner" />
                 <span asp-validation-for="Banner" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -26,7 +27,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Quay trở lại</a>
 </div>
 
 @section Scripts {
