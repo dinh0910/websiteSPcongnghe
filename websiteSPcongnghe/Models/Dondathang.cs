@@ -4,6 +4,8 @@
     {
         public int DondathangID { get; set; }
 
+        public DateTime Ngaylap {  get; set; }
+
         public string? HovaTen { get; set; }
 
         public string? Diachi { get; set; }
@@ -12,6 +14,6 @@
 
         public string? Email { get; set; }
 
-        public int ThanhTien { get; set; }
+        public int Tongtien { get; set; }
     }
 }

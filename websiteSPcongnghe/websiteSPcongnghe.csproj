@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Home\CheckOut.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AspNetCoreHero.ToastNotification" Version="1.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.15" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.15">
@@ -23,6 +27,10 @@
     <Folder Include="wwwroot\user\css\" />
     <Folder Include="wwwroot\user\js\" />
     <Folder Include="wwwroot\user\vendors\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Home\CheckOut.cshtml" />
   </ItemGroup>
 
 </Project>

@@ -3,7 +3,7 @@
         <div class="col"></div>
 
         <div class="col-7">
-            <div class="fw-bold fs-3 text-center mb-3" style="color:#71CD14">
+            <div class="fw-bold fs-3 text-center mb-3">
                 ĐĂNG NHẬP TÀI KHOẢN
             </div>
             <form asp-antiforgery="true" action="/Home/Login" method="post">
@@ -22,6 +22,8 @@
                     <input type="submit" value="Đăng nhập" class="btn text-white col fw-semibold" style="background-color:#71CD14" />
                 </div>
             </form>
+            <hr/>
+            <span class="text-muted">Bạn chưa có tài khoản? <a asp-action="Register" class="text-decoration-none">Đăng ký ngay</a></span>
         </div>
 
         <div class="col"></div>

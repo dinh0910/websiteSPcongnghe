@@ -1,6 +1,7 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System.Diagnostics;
 using websiteSPcongnghe.Data;
 using websiteSPcongnghe.Libs;
@@ -29,9 +30,10 @@ namespace websiteSPcongnghe.Controllers
             _notifyService = notifyService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var sp = _context.Sanpham.Include(s => s.Danhmucs).Include(s => s.Thuonghieus);
+            return View(await sp.ToListAsync());
         }
         
         public IActionResult Login()
@@ -40,6 +42,11 @@ namespace websiteSPcongnghe.Controllers
         }
 
         public IActionResult Register()
+        {
+            return View();
+        }
+
+        public IActionResult CheckOrder()
         {
             return View();
         }
@@ -101,10 +108,141 @@ namespace websiteSPcongnghe.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public async Task<IActionResult> CheckOrder(string? Sodienthoai)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var order = _context.Dondathang.Where(d => d.Sdt == Sodienthoai);
+            ViewBag.ctdh = _context.Dathangchitiet.Include(c => c.Sanpham);
+            ViewBag.danhmuc = _context.Danhmuc;
+            return View(order);
         }
+
+        public const string CARTKEY = "shopcart";
+
+        List<CartItem> GetCartItems()
+        {
+            var session = HttpContext.Session;
+            string jsoncart = session.GetString(CARTKEY);
+            if (jsoncart != null)
+            {
+                return JsonConvert.DeserializeObject<List<CartItem>>(jsoncart);
+            }
+            return new List<CartItem>();
+        }
+
+        void SaveCartSession(List<CartItem> list)
+        {
+            var session = HttpContext.Session;
+            string jsoncart = JsonConvert.SerializeObject(list);
+            session.SetString("shopcart", jsoncart);
+        }
+
+        void ClearCart()
+        {
+            var session = HttpContext.Session;
+            session.Remove("shopcart");
+        }
+
+        public async Task<IActionResult> AddToCart(int id)
+        {
+            ViewBag.danhmuc = _context.Danhmuc;
+            var product = await _context.Sanpham
+                .FirstOrDefaultAsync(m => m.SanphamID == id);
+            var cart = GetCartItems();
+            var item = cart.Find(p => p.Sanpham.SanphamID == id);
+            if (item != null)
+            {
+                item.Soluong++;
+            }
+            else
+            {
+                cart.Add(new CartItem() { Sanpham = product, Soluong = 1 });
+            }
+            SaveCartSession(cart);
+            return RedirectToAction(nameof(ViewCart));
+        }
+
+        public async Task<IActionResult> UpdateItem(int id, int quantity)
+        {
+            var cart = GetCartItems();
+            var item = cart.Find(p => p.Sanpham.SanphamID == id);
+            if (quantity == 0)
+            {
+                cart.Remove(item);
+            }
+            item.Soluong = quantity;
+            SaveCartSession(cart);
+            return RedirectToAction(nameof(ViewCart));
+        }
+
+        public async Task<IActionResult> RemoveItem(int id)
+        {
+            var cart = GetCartItems();
+            var item = cart.Find(p => p.Sanpham.SanphamID == id);
+            if (item != null)
+            {
+                cart.Remove(item);
+            }
+            SaveCartSession(cart);
+            return RedirectToAction(nameof(ViewCart));
+        }
+
+        public IActionResult ViewCart()
+        {
+            ViewBag.danhmuc = _context.Danhmuc;
+
+            return View(GetCartItems());
+        }
+
+        public IActionResult CheckOut()
+        {
+            ViewBag.danhmuc = _context.Danhmuc;
+
+            return View(GetCartItems());
+        }
+
+        public async Task<IActionResult> CreateBill(string Ten, string SoDienThoai, string DiaChi, string Email)
+        {
+            // lưu hóa đơn
+            var bill = new Dondathang();
+            bill.Ngaylap = DateTime.Now;
+            bill.HovaTen = Ten;
+            bill.Sdt = SoDienThoai;
+            bill.Diachi = DiaChi;
+            bill.Email = Email;
+
+            _context.Add(bill);
+            await _context.SaveChangesAsync();
+
+            var cart = GetCartItems();
+            int amount = 0;
+            int soLuong = 0;
+            //chi tiết hóa đơn
+            foreach (var i in cart)
+            {
+                var b = new Dathangchitiet();
+                b.DondathangID = bill.DondathangID;
+                b.SanphamID = i.Sanpham.SanphamID;
+                b.Dongia = i.Sanpham.Thanhtien;
+                b.Soluong = i.Soluong;
+                amount = i.Sanpham.Thanhtien * i.Soluong;
+                b.Thanhtien = amount;
+
+                var sp = _context.Sanpham.FirstOrDefault(s => s.SanphamID == b.SanphamID);
+                sp.Soluong -= i.Soluong;
+                bill.Tongtien += amount;
+                _context.Add(b);
+            }
+            await _context.SaveChangesAsync();
+            ClearCart();
+            return RedirectToAction(nameof(Message));
+        }
+
+        public IActionResult Message()
+        {
+            ViewBag.danhmuc = _context.Danhmuc;
+
+            return View();
+        }
+
     }
 }

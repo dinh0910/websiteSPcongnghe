@@ -1,0 +1,24 @@
+﻿<div class="container my-5">
+    <div class="row">
+        <div class="col"></div>
+
+        <div class="col-7">
+            <div class="fw-bold fs-3 text-center mb-3" style="color:#71CD14">
+                KIỂM TRA ĐƠN HÀNG
+            </div>
+            <form asp-antiforgery="true" action="/Home/Login" method="post">
+                <div class="form-floating mb-3">
+                    <input type="text" name="Sodienthoai" class="form-control" id="floatingInput" placeholder="Tài khoản" required />
+                    <label for="floatingInput">Số điện thoại</label>
+                </div>
+                <div class="d-grid">
+                    <input type="submit" value="Kiểm tra" class="btn text-white col fw-semibold" style="background-color:#71CD14" />
+                </div>
+            </form>
+            <hr />
+            <span class="text-muted">Bạn chưa có đơn hàng? <a asp-action="Index" class="text-decoration-none">Mua sắm ngay</a></span>
+        </div>
+
+        <div class="col"></div>
+    </div>
+</div>

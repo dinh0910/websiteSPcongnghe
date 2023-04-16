@@ -1,4 +1,10 @@
-﻿  <!--================Home Banner Area =================-->
+﻿@model IEnumerable<websiteSPcongnghe.Models.Sanpham>
+
+@{
+    var i = 0;
+}
+
+<!--================Home Banner Area =================-->
 <section class="home_banner_area mb-40">
     <div class="banner_inner d-flex align-items-center">
         <div class="container">
@@ -14,3 +20,97 @@
     </div>
 </section>
 <!--================End Home Banner Area =================-->
+
+<section class="feature-area section_gap_bottom_custom">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="single-feature">
+                    <a href="#" class="icon text-decoration-none text-muted">
+                        <span class="fs-4"><i class="fa-solid fa-sack-dollar"></i></span>
+                        <h3>Money back gurantee</h3>
+                    </a>
+                    <p>Shall open divide a one</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="single-feature">
+                    <a href="#" class="icon text-decoration-none text-muted">
+                        <span class="fs-4"><i class="fa-solid fa-truck"></i></span>
+                        <h3>Free Delivery</h3>
+                    </a>
+                    <p>Shall open divide a one</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="single-feature">
+                    <a href="#" class="icon text-decoration-none text-muted">
+                        <span class="fs-4"><i class="fa-solid fa-headphones"></i></span>
+                        <h3>Alway support</h3>
+                    </a>
+                    <p>Shall open divide a one</p>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <div class="single-feature">
+                    <a href="#" class="icon text-decoration-none text-muted">
+                        <span class="fs-4"><i class="fa-solid fa-shield"></i></span>
+                        <h3>Secure payment</h3>
+                    </a>
+                    <p>Shall open divide a one</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="feature_product_area section_gap_bottom_custom">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="main_title">
+                    <h2><span>Sản phẩm đặc trưng</span></h2>
+                    <p>Bring called seed first of third give itself now ment</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            @foreach(var item in Model){
+                if (i < 3) {
+                    <div class="col-lg-4 col-md-6">
+                        <div class="single-product shadow p-3 mb-5">
+                            <div class="product-img">
+                                <img class="img-fluid w-100" src="~/images/products/@item.Hinhanh" alt="" />
+                                <div class="p_icon">
+                                    <a asp-action="Details" asp-route-id="@item.SanphamID">
+                                        <i class="fa-solid fa-eye"></i>
+                                    </a>
+                                    <a asp-action="AddToList">
+                                        <i class="fa-solid fa-heart"></i>
+                                    </a>
+                                    <a asp-action="AddToCart" asp-route-id="@item.SanphamID">
+                                        <i class="fa-solid fa-cart-shopping"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="product-btm">
+                                <a href="#" class="d-block">
+                                    <h4>@item.Tensanpham</h4>
+                                </a>
+                                <div class="mt-3">
+                                    <span class="mr-4">@Html.DisplayFor(modelItem => item.Thanhtien)</span>
+                                    <del>@Html.DisplayFor(modelItem => item.Dongia)</del>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                i++;
+            }
+        </div>
+    </div>
+</section>

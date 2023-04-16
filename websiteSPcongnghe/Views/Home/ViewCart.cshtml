@@ -1,0 +1,120 @@
+﻿@model List<websiteSPcongnghe.Models.CartItem>
+
+@{
+    int amount = 0;
+    int total = 0;
+}
+
+<section class="banner_area">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="container">
+            <div class="banner_content d-md-flex justify-content-between align-items-center">
+                <div class="mb-3 mb-md-0">
+                    <h2>Cart</h2>
+                    <p>Very us move be blessed multiply night</p>
+                </div>
+                <div class="page_link">
+                    <a href="index.html">Home</a>
+                    <a href="cart.html">Cart</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cart_area">
+    <div class="container">
+        <div class="cart_inner">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Sản phầm</th>
+                            <th scope="col">Đơn giá</th>
+                            <th scope="col">Số lượng</th>
+                            <th scope="col">Thành tiền</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if(Model.Count > 0){
+                            @foreach (var item in Model)
+                            {
+                                amount = item.Sanpham.Thanhtien * item.Soluong;
+                                total += amount;
+                                <tr>
+                                    <td>
+                                        <div class="media">
+                                            <div class="d-flex">
+                                                <img src="~/images/products/@item.Sanpham.Hinhanh" alt="" />
+                                            </div>
+                                            <div class="media-body">
+                                                <p>@item.Sanpham.Tensanpham</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <h5>@Html.DisplayFor(modelItem => item.Sanpham.Dongia)</h5>
+                                    </td>
+                                    <td>
+                                        <div class="product_count">
+                                            <input type="text"
+                                                name="qty"
+                                                id="sst"
+                                                maxlength="12"
+                                                value="1"
+                                                title="Quantity:"
+                                                class="input-text qty" />
+                                            <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
+                                            class="increase items-count"
+                                            type="button">
+                                                <i class="lnr lnr-chevron-up"></i>
+                                            </button>
+                                            <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
+                                            class="reduced items-count"
+                                            type="button">
+                                                <i class="lnr lnr-chevron-down"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <h5>@(amount.ToString("n0")) đ</h5>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        <tr class="bottom_button">
+                            <td>
+                                <a class="gray_btn" asp-action="UpdateItem">Cập nhật</a>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <h5>Tổng tiền</h5>
+                            </td>
+                            <td>
+                                <h5>@(total.ToString("n0")) đ</h5>
+                            </td>
+                        </tr>
+                        <tr class="out_button_area">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <div class="checkout_btn_inner">
+                                    <a class="gray_btn" href="#">Quay lại</a>
+                                    <a class="main_btn" href="#">Đặt hàng</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

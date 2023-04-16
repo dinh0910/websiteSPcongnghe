@@ -47,7 +47,7 @@ namespace websiteSPcongnghe.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(danhmuc);
-                _notifyService.Error("Thêm danh mục thành công!");
+                _notifyService.Success("Thêm danh mục thành công!");
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

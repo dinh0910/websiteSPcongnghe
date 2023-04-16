@@ -39,5 +39,9 @@ namespace websiteSPcongnghe.Data
         public DbSet<websiteSPcongnghe.Models.Thongso>? Thongso { get; set; }
 
         public DbSet<websiteSPcongnghe.Models.Hinhanh>? Hinhanh { get; set; }
+
+        public DbSet<websiteSPcongnghe.Models.Dondathang>? Dondathang { get; set; }
+
+        public DbSet<websiteSPcongnghe.Models.Dathangchitiet>? Dathangchitiet { get; set; }
     }
 }
