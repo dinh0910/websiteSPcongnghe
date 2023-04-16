@@ -1,4 +1,7 @@
-﻿  <!--================Header Menu Area =================-->
+﻿@using Microsoft.AspNetCore.Http
+@using Newtonsoft.Json
+@inject IHttpContextAccessor HttpContextAccessor
+
 <header class="header_area">
     <div class="top_menu">
         <div class="container">
@@ -103,31 +106,50 @@
                         </div>
 
                         <div class="col-lg-5 pr-0">
-                            <ul class="nav navbar-nav navbar-right right_nav pull-right">
-                                <li class="nav-item">
-                                    <a href="#" class="icons">
-                                        <i class="fa-solid fa-truck-fast"></i>
-                                    </a>
-                                </li>
+                            <div class="header__cart">
+                                <ul class="nav navbar-nav navbar-right right_nav pull-right">
+                                    <li class="nav-item">
+                                        <a asp-action="CheckOrder" class="icons">
+                                            <i class="fa-solid fa-truck-fast"></i>
+                                        </a>
+                                    </li>
 
-                                <li class="nav-item">
-                                    <a asp-action="CheckOrder" class="icons">
-                                        <i class="fa-solid fa-cart-shopping"></i>
-                                    </a>
-                                </li>
+                                    <li class="nav-item">
+                                        <a asp-action="ViewCart" class="icons">
+                                            <i class="fa-solid fa-cart-shopping"></i>
+                                            @{
+                                                var session = HttpContextAccessor.HttpContext.Session;
+                                                string jsoncart = session.GetString(websiteSPcongnghe.Controllers.HomeController.CARTKEY);
+                                                if (jsoncart != null)
+                                                {
+                                                    var cart = JsonConvert.DeserializeObject<List<CartItem>>(jsoncart);
+                                                    <span>@cart.Count</span>
+                                                }
+                                            }
+                                        </a>
+                                    </li>
 
-                                <li class="nav-item">
-                                    <a href="#" class="icons">
-                                        <i class="fa-solid fa-heart"></i>
-                                    </a>
-                                </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="icons">
+                                            <i class="fa-solid fa-heart"></i>
+                                            @{
+                                                string jsoncartl = Context.Request.Cookies[$"{Context.Session.GetInt32("_TaiKhoanID")}_cartlove"];
+                                                if (jsoncartl != null)
+                                                {
+                                                    var cartloved = JsonConvert.DeserializeObject<List<ListLoved>>(jsoncartl);
+                                                    <span>@cartloved.Count</span>
+                                                }
+                                            }
+                                        </a>
+                                    </li>
 
-                                <li class="nav-item">
-                                    <a asp-action="Login" class="icons">
-                                        <i class="fa-solid fa-user"></i>
-                                    </a>
-                                </li>
-                            </ul>
+                                    <li class="nav-item">
+                                        <a asp-action="Login" class="icons">
+                                            <i class="fa-solid fa-user"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -135,4 +157,3 @@
         </div>
     </div>
 </header>
-<!--================Header Menu Area =================-->

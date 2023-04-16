@@ -1,1 +1,122 @@
-﻿
+﻿@model List<websiteSPcongnghe.Models.CartItem>
+
+@{
+    int amount = 0;
+    int total = 0;
+}
+
+<section class="banner_area">
+    <div class="banner_inner d-flex align-items-center">
+        <div class="container">
+            <div class="banner_content d-md-flex justify-content-between align-items-center">
+                <div class="mb-3 mb-md-0">
+                    <h2>Product Checkout</h2>
+                    <p>Very us move be blessed multiply night</p>
+                </div>
+                <div class="page_link">
+                    <a href="index.html">Home</a>
+                    <a href="checkout.html">Product Checkout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="checkout_area section_gap">
+    <div class="container">
+        <div class="billing_details">
+            <div class="row">
+                <form class="row contact_form"
+                      action="CreateBill"
+                      method="post"
+                      novalidate="novalidate">
+                    <div class="col-lg-8">
+                        <h3>Chi tiết đặt hàng</h3>
+                        <div class="col-md-6 form-group p_star">
+                            <input type="text"
+                                   class="form-control"
+                                   name="Ten" />
+                            <span class="placeholder"
+                                  data-placeholder="Họ và tên"></span>
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <input type="text"
+                                   class="form-control"
+                                   id="email"
+                                   name="Email" />
+                            <span class="placeholder" data-placeholder="Email"></span>
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <input type="text"
+                                   class="form-control"
+                                   id="number"
+                                   name="SoDienThoai" />
+                            <span class="placeholder"
+                                  data-placeholder="Số điện thoại"></span>
+                        </div>
+                        <div class="col-md-6 form-group p_star">
+                            <input type="text"
+                                   class="form-control"
+                                   id="add1"
+                                   name="DiaChi" />
+                            <span class="placeholder"
+                                  data-placeholder="Địa chỉ"></span>
+                        </div>
+                        @*<div class="col-md-12 form-group">
+                        <textarea class="form-control"
+                        name="message"
+                        id="message"
+                        rows="1"
+                        placeholder="Ghi chú"></textarea>
+                        </div>*@
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="order_box">
+                            <h2>Đơn hàng của bạn</h2>
+                            <ul class="list">
+                                <li>
+                                    <a href="#">
+                                        Sản phẩm
+                                        <span>Thành tiền</span>
+                                    </a>
+                                </li>
+                                @foreach (var item in Model)
+                                {
+                                    amount = item.Sanpham.Thanhtien * item.Soluong;
+                                    total += amount;
+                                    <li>
+                                        <a href="#">
+                                            @item.Sanpham.Tensanpham
+                                            <span class="middle">x @item.Soluong</span>
+                                            <span class="last">@(amount.ToString("n0"))đ</span>
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                            <ul class="list list_2">
+                                <li>
+                                    <a href="#">
+                                        Tổng tiền
+                                        <span>@(total.ToString("n0"))đ</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        Miễn phí Ship
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        Tổng cộng
+                                        <span>@(total.ToString("n0"))đ</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <button type="submit" class="main_btn">Tiến hành đặt hàng</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

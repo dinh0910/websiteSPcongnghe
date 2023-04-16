@@ -17,12 +17,12 @@ namespace websiteSPcongnghe.Models
 
         public string? Hinhanh { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:#,##0} đ")]
+        [DisplayFormat(DataFormatString = "{0:#,##0}đ")]
         public int Dongia { get; set; }
 
         public int Sale { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:#,##0} đ")]
+        [DisplayFormat(DataFormatString = "{0:#,##0}đ")]
         public int Thanhtien { get; set; }
 
         public int Soluong { get; set; } = 0;

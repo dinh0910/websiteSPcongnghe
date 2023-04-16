@@ -17,7 +17,7 @@ namespace websiteSPcongnghe.Models
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Ngaynhap { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:#,##0} đ")]
+        [DisplayFormat(DataFormatString = "{0:#,##0}đ")]
         public int Tongtien { get; set; }
 
         public ICollection<Nhapchitiet>? Nhapchitiets { get; set; }

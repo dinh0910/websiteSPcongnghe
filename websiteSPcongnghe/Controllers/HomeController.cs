@@ -108,13 +108,13 @@ namespace websiteSPcongnghe.Controllers
             return View();
         }
 
-        public async Task<IActionResult> CheckOrder(string? Sodienthoai)
-        {
-            var order = _context.Dondathang.Where(d => d.Sdt == Sodienthoai);
-            ViewBag.ctdh = _context.Dathangchitiet.Include(c => c.Sanpham);
-            ViewBag.danhmuc = _context.Danhmuc;
-            return View(order);
-        }
+        //public async Task<IActionResult> CheckOrder(string? Sodienthoai)
+        //{
+        //    var order = _context.Dondathang.Where(d => d.Sdt == Sodienthoai);
+        //    ViewBag.ctdh = _context.Dathangchitiet.Include(c => c.Sanpham);
+        //    ViewBag.danhmuc = _context.Danhmuc;
+        //    return View(order);
+        //}
 
         public const string CARTKEY = "shopcart";
 
@@ -195,8 +195,6 @@ namespace websiteSPcongnghe.Controllers
 
         public IActionResult CheckOut()
         {
-            ViewBag.danhmuc = _context.Danhmuc;
-
             return View(GetCartItems());
         }
 
@@ -234,10 +232,10 @@ namespace websiteSPcongnghe.Controllers
             }
             await _context.SaveChangesAsync();
             ClearCart();
-            return RedirectToAction(nameof(Message));
+            return RedirectToAction(nameof(SuccessOrder));
         }
 
-        public IActionResult Message()
+        public IActionResult SuccessOrder()
         {
             ViewBag.danhmuc = _context.Danhmuc;
 

@@ -6,9 +6,9 @@
             <div class="fw-bold fs-3 text-center mb-3" style="color:#71CD14">
                 KIỂM TRA ĐƠN HÀNG
             </div>
-            <form asp-antiforgery="true" action="/Home/Login" method="post">
+            <form asp-antiforgery="true" action="/Home/CheckOrder" method="post">
                 <div class="form-floating mb-3">
-                    <input type="text" name="Sodienthoai" class="form-control" id="floatingInput" placeholder="Tài khoản" required />
+                    <input type="text" name="Sodienthoai" class="form-control" id="floatingInput" placeholder="Nhập số điện thoại đặt hàng của bạn" required />
                     <label for="floatingInput">Số điện thoại</label>
                 </div>
                 <div class="d-grid">

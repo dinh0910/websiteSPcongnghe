@@ -1,4 +1,6 @@
-﻿namespace websiteSPcongnghe.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace websiteSPcongnghe.Models
 {
     public class Dondathang
     {
@@ -14,6 +16,7 @@
 
         public string? Email { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:#,##0}đ")]
         public int Tongtien { get; set; }
     }
 }

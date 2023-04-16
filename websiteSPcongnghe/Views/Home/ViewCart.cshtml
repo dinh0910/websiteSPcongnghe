@@ -1,43 +1,44 @@
 ﻿@model List<websiteSPcongnghe.Models.CartItem>
 
 @{
-    int amount = 0;
-    int total = 0;
+
 }
 
-<section class="banner_area">
-    <div class="banner_inner d-flex align-items-center">
-        <div class="container">
-            <div class="banner_content d-md-flex justify-content-between align-items-center">
-                <div class="mb-3 mb-md-0">
-                    <h2>Cart</h2>
-                    <p>Very us move be blessed multiply night</p>
-                </div>
-                <div class="page_link">
-                    <a href="index.html">Home</a>
-                    <a href="cart.html">Cart</a>
+@if(Model.Count > 0){
+    int amount = 0;
+    int total = 0;
+    <section class="banner_area">
+        <div class="banner_inner d-flex align-items-center">
+            <div class="container">
+                <div class="banner_content d-md-flex justify-content-between align-items-center">
+                    <div class="mb-3 mb-md-0">
+                        <h2>Giỏ hàng</h2>
+                    </div>
+                    <div class="page_link">
+                        <a href="/">Trang chủ</a>
+                        <a action="active disabled">Giỏ hàng</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<section class="cart_area">
-    <div class="container">
-        <div class="cart_inner">
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Sản phầm</th>
-                            <th scope="col">Đơn giá</th>
-                            <th scope="col">Số lượng</th>
-                            <th scope="col">Thành tiền</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if(Model.Count > 0){
+    <section class="cart_area">
+        <div class="container">
+            <div class="cart_inner">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Sản phầm</th>
+                                <th scope="col">Đơn giá</th>
+                                <th scope="col">Số lượng</th>
+                                <th scope="col">Thành tiền</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
                             @foreach (var item in Model)
                             {
                                 amount = item.Sanpham.Thanhtien * item.Soluong;
@@ -46,7 +47,7 @@
                                     <td>
                                         <div class="media">
                                             <div class="d-flex">
-                                                <img src="~/images/products/@item.Sanpham.Hinhanh" alt="" />
+                                                <img src="~/images/products/@item.Sanpham.Hinhanh" width="150" height="150" />
                                             </div>
                                             <div class="media-body">
                                                 <p>@item.Sanpham.Tensanpham</p>
@@ -78,43 +79,66 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <h5>@(amount.ToString("n0")) đ</h5>
+                                        <h5>@(amount.ToString("n0"))đ</h5>
+                                    </td>
+                                    <td>
+                                        <a asp-action="RemoveItem" asp-route-id="@item.Sanpham.SanphamID">
+                                            <i class="fa-solid fa-trash text-secondary"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             }
-                        }
-                        <tr class="bottom_button">
-                            <td>
-                                <a class="gray_btn" asp-action="UpdateItem">Cập nhật</a>
-                            </td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <h5>Tổng tiền</h5>
-                            </td>
-                            <td>
-                                <h5>@(total.ToString("n0")) đ</h5>
-                            </td>
-                        </tr>
-                        <tr class="out_button_area">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <div class="checkout_btn_inner">
-                                    <a class="gray_btn" href="#">Quay lại</a>
-                                    <a class="main_btn" href="#">Đặt hàng</a>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                            <tr class="bottom_button">
+                                <td>
+                                    <a class="gray_btn" asp-action="UpdateItem">Cập nhật</a>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <h5>Tổng tiền</h5>
+                                </td>
+                                <td>
+                                    <h5>@(total.ToString("n0"))đ</h5>
+                                </td>
+                            </tr>
+                            <tr class="out_button_area">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <div class="checkout_btn_inner">
+                                        <a class="gray_btn" href="/">Quay lại</a>
+                                        <a class="main_btn" asp-action="CheckOut">Đặt hàng</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+} else
+{
+    <div class="container mt-5">
+        <div class="text-center mt-5">
+            <div class="mb-5">
+                <span class="fs-1">
+                    <i class="fa-solid fa-face-frown"></i>
+                </span>
+            </div>
+            <span class="fs-2 fw-bold">BẠN CHƯA CÓ SẢN PHẨM TRONG GIỎ HÀNG, VUI LÒNG QUAY LẠI</span>
+            <div class="my-5">
+                <a class="fs-5 px-3 py-2 btn text-white" style="background-color:#71CD14" href="/">Về trang chủ</a>
             </div>
         </div>
     </div>
-</section>
+}

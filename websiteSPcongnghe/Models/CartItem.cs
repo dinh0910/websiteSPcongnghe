@@ -6,7 +6,7 @@
         public int Soluong { get; set; }
     }
 
-    public class ListLove
+    public class ListLoved
     {
         public Sanpham? SanPhams { get; set; }
     }
