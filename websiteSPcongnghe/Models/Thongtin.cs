@@ -1,6 +1,6 @@
 ﻿namespace websiteSPcongnghe.Models
 {
-    public class ThongTin
+    public class Thongtin
     {
         public int ThongtinID { get; set; }
 

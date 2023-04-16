@@ -1,4 +1,4 @@
-﻿@model IEnumerable<websiteSPcongnghe.Models.Nhapsanpham>
+﻿@model IEnumerable<websiteSPcongnghe.Models.Nhapchitiet>
 
 @{
     var i = 0;
@@ -6,28 +6,31 @@
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Danh sách hàng đã nhập</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách chi tiết nhập hàng</h6>
     </div>
     <div class="card-body">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
                 <tr>
+                    <th>STT</th>
                     <th>
-                        STT
+                        Mã nhập hàng
                     </th>
                     <th>
-                        Nhân viên
+                        Tên sản phẩm
                     </th>
                     <th>
-                        Nhà cung cấp
+                        Đơn vị tính
                     </th>
                     <th>
-                        Ngày nhập đơn
+                        Đơn giá
                     </th>
                     <th>
-                        Tổng tiền
+                        Số lượng
                     </th>
-                    <th></th>
+                    <th>
+                        Thành tiền
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -38,23 +41,31 @@
                             @(i++)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Taikhoans.HovaTen)
+                            @Html.DisplayFor(modelItem => item.NhapchitietID)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Nhacungcaps.Ten)
+                            @Html.DisplayFor(modelItem => item.Sanphams.Tensanpham)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Ngaynhap)
+                            @Html.DisplayFor(modelItem => item.Donvitinhs.Ten)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Tongtien)
+                            @Html.DisplayFor(modelItem => item.Dongia)
                         </td>
                         <td>
-                            <a asp-action="Details" asp-route-id="@item.NhapsanphamID">Details</a>
+                            @Html.DisplayFor(modelItem => item.Dongia)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Soluong)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Thanhtien)
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
+
     </div>
 </div>
+

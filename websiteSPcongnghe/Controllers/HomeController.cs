@@ -39,6 +39,11 @@ namespace websiteSPcongnghe.Controllers
             return View();
         }
 
+        public IActionResult Register()
+        {
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(TaiKhoanLogin TaiKhoan)
@@ -71,7 +76,30 @@ namespace websiteSPcongnghe.Controllers
             return View(TaiKhoan);
         }
 
-
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register([Bind("TaikhoanID,Tendangnhap,Matkhau")] Taikhoan TaiKhoan)
+        {
+            if (ModelState.IsValid)
+            {
+                var check = _context.Taikhoan.FirstOrDefault(r => r.Tendangnhap == TaiKhoan.Tendangnhap);
+                if (check == null)
+                {
+                    if (RegexPassword.Validation(TaiKhoan.Matkhau))
+                    {
+                        TaiKhoan.Matkhau = SHA1.ComputeHash(TaiKhoan.Matkhau);
+                        _context.Add(TaiKhoan);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction("Login", "Home");
+                    }
+                }
+                else
+                {
+                    return View();
+                }
+            }
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

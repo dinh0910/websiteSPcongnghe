@@ -256,7 +256,7 @@ namespace websiteSPcongnghe.Areas.Admin.Controllers
             return RedirectToAction(nameof(Import));
         }
 
-        [Route("/import", Name = "import")]
+        [Route("/admin/sanphams/import", Name = "import")]
         public IActionResult Import()
         {
             ViewData["NhacungcapID"] = new SelectList(_context.Nhacungcap, "NhacungcapID", "Ten");
@@ -299,15 +299,64 @@ namespace websiteSPcongnghe.Areas.Admin.Controllers
             return RedirectToAction(nameof(Stored));
         }
 
+        public async Task<IActionResult> HistoryImport()
+        {
+            var h = _context.Nhapsanpham.Include(s => s.Taikhoans).Include(s => s.Nhacungcaps);
+            ViewData["SanphamID"] = new SelectList(_context.Sanpham, "SanphamID", "Tensanpham");
+            ViewData["DonvitinhID"] = new SelectList(_context.Donvitinh, "DonvitinhID", "Ten");
+            return View(await h.ToListAsync());
+        }
+
+        public async Task<IActionResult> ImportDetails(int? id)
+        {
+            var websiteSPcongngheContext = _context.Nhapchitiet
+                .Include(c => c.Nhapsanphams)
+                .Include(c => c.Sanphams)
+                .Include(c => c.Donvitinhs)
+                .Where(m => m.NhapsanphamID == id);
+
+            return View(await websiteSPcongngheContext.ToListAsync());
+        }
+
         public async Task<IActionResult> Details(int? id)
         {
             var sp = await _context.Sanpham.FirstOrDefaultAsync(s => s.SanphamID == id);
-            //ViewBag.thongtin = _context.Thongtin;
-            //ViewBag.thongso = _context.Thongso;
-            //ViewBag.hinhanh = _context.Hinhnh;
+            ViewBag.thongtin = _context.Thongtin;
+            ViewBag.thongso = _context.Thongso;
+            ViewBag.hinhanh = _context.Hinhanh;
             //ViewBag.khuyenmai = _context.KhuyenMai;
             return View(sp);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Details(int id, [Bind("ThongtinID,SanphamID,Tronghop,Baohanh,Chinhsach")] Thongtin thongTin
+            , [Bind("ThongsoID,SanphamID,Tenthongso,Noidung")] Thongso thongSo,
+            IFormFile file, [Bind("HinhanhID,SanphamID,Anh")] Hinhanh hinhAnh)
+        {
+            if (thongTin.Baohanh != null)
+            {
+                _context.Update(thongTin);
+                await _context.SaveChangesAsync();
+            }
+            //else if (khuyenMai.NoiDung != null)
+            //{
+            //    _context.Update(khuyenMai);
+            //    await _context.SaveChangesAsync();
+            //}
+            else if (thongSo.Tenthongso != null)
+            {
+                _context.Update(thongSo);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                hinhAnh.Anh = Upload(file);
+                _context.Update(hinhAnh);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction("Details", "SanPhams", routeValues: new { id });
+        }
     }
 }

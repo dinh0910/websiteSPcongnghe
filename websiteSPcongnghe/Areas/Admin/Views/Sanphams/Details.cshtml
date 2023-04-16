@@ -1,0 +1,251 @@
+﻿@model websiteSPcongnghe.Models.Sanpham
+
+@{
+    var tt = ViewBag.thongtin as IQueryable<websiteSPcongnghe.Models.Thongtin>;
+    var ts = ViewBag.thongso as IQueryable<websiteSPcongnghe.Models.Thongso>;
+    var ha = ViewBag.hinhanh as IQueryable<websiteSPcongnghe.Models.Hinhanh>;
+}
+
+<h1 class="h3 mb-2 text-gray-800">Chi tiết sản phẩm @Model.Tensanpham</h1>
+
+<div class="my-5">
+    <a role="button" data-bs-toggle="modal" data-bs-target="#modalThongTin" class="btn btn-primary btn-icon-split">
+        <span class="icon text-white-50">
+            <i class="fas fa-arrow-right"></i>
+        </span>
+        <span class="text">Thêm thông tin</span>
+    </a>
+    <a role="button" data-bs-toggle="modal" data-bs-target="#modalThongSo" asp-action="Create" class="btn btn-success btn-icon-split mx-3">
+        <span class="icon text-white-50">
+            <i class="fas fa-arrow-right"></i>
+        </span>
+        <span class="text">Thêm thông số</span>
+    </a>
+    <a role="button" data-bs-toggle="modal" data-bs-target="#modalHinhAnh" asp-action="Create" class="btn btn-danger btn-icon-split">
+        <span class="icon text-white-50">
+            <i class="fas fa-arrow-right"></i>
+        </span>
+        <span class="text">Thêm hình ảnh</span>
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Thông tin @Model.Tensanpham</h6>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>
+                                Trong hộp
+                            </th>
+                            <th>
+                                Bảo hành
+                            </th>
+                            <th>
+                                Chính sách
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in tt)
+                        {
+                            @if (item.SanphamID == Model.SanphamID)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Tronghop)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Baohanh)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Chinhsach)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Delete" asp-route-id="@item.SanphamID">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Thông số @Model.Tensanpham</h6>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>
+                                Tên thông số
+                            </th>
+                            <th>
+                                Nội dung
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ts)
+                        {
+                            @if (item.SanphamID == Model.SanphamID)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Tenthongso)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Noidung)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Delete" asp-route-id="@item.SanphamID">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Hình ảnh @Model.Tensanpham</h6>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>
+                                Hình ảnh
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in ha)
+                        {
+                            @if (item.SanphamID == Model.SanphamID)
+                            {
+                                <tr>
+                                    <td>
+                                        <img src="~/images/products/@Html.DisplayFor(modelItem => item.Anh)"
+                                            class="img-thumbnail" width="200" height="150"
+                                        />
+                                    </td>
+                                    <td>
+                                        <a asp-action="Delete" asp-route-id="@item.SanphamID">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalThongTin" tabindex="-1" aria-labelledby="modalThongTinLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="text-center mb-2">
+                    <span class="h3 mb-2 text-gray-800">Thêm thông tin</span>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="p-2">
+                    <form asp-action="Details">
+                        <input type="hidden" asp-for="SanphamID" value="@Model.SanphamID" />
+                        <div class="form-group mb-3">
+                            <label class="control-label mb-1">Trong hộp</label>
+                            <input type="text" name="Tronghop" class="form-control" />
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="control-label mb-1">Bảo hành</label>
+                            <input type="text" name="BaoHanh" class="form-control" />
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="control-label mb-1">Chính sách</label>
+                            <input type="text" name="Chinhsach" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Thêm" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalThongSo" tabindex="-1" aria-labelledby="modalThongSoLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="text-center mb-2">
+                    <span class="h3 mb-2 text-gray-800">Thêm thông số</span>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="p-2">
+                    <form asp-action="Details">
+                        <input type="hidden" asp-for="SanphamID" value="@Model.SanphamID" />
+                        <div class="form-group mb-3">
+                            <label class="control-label mb-1">Tên thông số</label>
+                            <input type="text" name="Tenthongso" class="form-control" />
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="control-label mb-1">Nội dung</label>
+                            <input type="text" name="Noidung" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Thêm" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalHinhAnh" tabindex="-1" aria-labelledby="modalHinhAnhLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="text-center mb-2">
+                    <span class="h3 mb-2 text-gray-800">Thêm hình ảnh</span>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="p-2">
+                    <form asp-action="Details" enctype="multipart/form-data">
+                        <input type="hidden" asp-for="SanphamID" value="@Model.SanphamID" />
+                        <div class="form-group mb-3">
+                            <label class="control-label mb-1">Hình ảnh</label>
+                            <input type="file" name="file" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Thêm" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

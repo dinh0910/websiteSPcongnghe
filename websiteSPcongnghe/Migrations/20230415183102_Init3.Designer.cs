@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using websiteSPcongnghe.Data;
 
@@ -11,9 +12,10 @@ using websiteSPcongnghe.Data;
 namespace websiteSPcongnghe.Migrations
 {
     [DbContext(typeof(websiteSPcongngheContext))]
-    partial class websiteSPcongngheContextModelSnapshot : ModelSnapshot
+    [Migration("20230415183102_Init3")]
+    partial class Init3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,27 +70,6 @@ namespace websiteSPcongnghe.Migrations
                     b.HasKey("DonvitinhID");
 
                     b.ToTable("Donvitinh");
-                });
-
-            modelBuilder.Entity("websiteSPcongnghe.Models.Hinhanh", b =>
-                {
-                    b.Property<int>("HinhanhID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HinhanhID"), 1L, 1);
-
-                    b.Property<string>("Anh")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SanphamID")
-                        .HasColumnType("int");
-
-                    b.HasKey("HinhanhID");
-
-                    b.HasIndex("SanphamID");
-
-                    b.ToTable("Hinhanh");
                 });
 
             modelBuilder.Entity("websiteSPcongnghe.Models.Nhacungcap", b =>
@@ -266,57 +247,6 @@ namespace websiteSPcongnghe.Migrations
                     b.ToTable("Taikhoan");
                 });
 
-            modelBuilder.Entity("websiteSPcongnghe.Models.Thongso", b =>
-                {
-                    b.Property<int>("ThongsoID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ThongsoID"), 1L, 1);
-
-                    b.Property<string>("Noidung")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SanphamID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Tenthongso")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ThongsoID");
-
-                    b.HasIndex("SanphamID");
-
-                    b.ToTable("Thongso");
-                });
-
-            modelBuilder.Entity("websiteSPcongnghe.Models.Thongtin", b =>
-                {
-                    b.Property<int>("ThongtinID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ThongtinID"), 1L, 1);
-
-                    b.Property<string>("Baohanh")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Chinhsach")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SanphamID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Tronghop")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ThongtinID");
-
-                    b.HasIndex("SanphamID");
-
-                    b.ToTable("Thongtin");
-                });
-
             modelBuilder.Entity("websiteSPcongnghe.Models.Thuonghieu", b =>
                 {
                     b.Property<int>("ThuonghieuID")
@@ -331,17 +261,6 @@ namespace websiteSPcongnghe.Migrations
                     b.HasKey("ThuonghieuID");
 
                     b.ToTable("Thuonghieu");
-                });
-
-            modelBuilder.Entity("websiteSPcongnghe.Models.Hinhanh", b =>
-                {
-                    b.HasOne("websiteSPcongnghe.Models.Sanpham", "Sanphams")
-                        .WithMany()
-                        .HasForeignKey("SanphamID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Sanphams");
                 });
 
             modelBuilder.Entity("websiteSPcongnghe.Models.Nhapchitiet", b =>
@@ -418,28 +337,6 @@ namespace websiteSPcongnghe.Migrations
                         .IsRequired();
 
                     b.Navigation("Quyenhans");
-                });
-
-            modelBuilder.Entity("websiteSPcongnghe.Models.Thongso", b =>
-                {
-                    b.HasOne("websiteSPcongnghe.Models.Sanpham", "Sanphams")
-                        .WithMany()
-                        .HasForeignKey("SanphamID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Sanphams");
-                });
-
-            modelBuilder.Entity("websiteSPcongnghe.Models.Thongtin", b =>
-                {
-                    b.HasOne("websiteSPcongnghe.Models.Sanpham", "Sanpham")
-                        .WithMany()
-                        .HasForeignKey("SanphamID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Sanpham");
                 });
 
             modelBuilder.Entity("websiteSPcongnghe.Models.Nhapsanpham", b =>

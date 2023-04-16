@@ -29,5 +29,15 @@ namespace websiteSPcongnghe.Data
         public DbSet<websiteSPcongnghe.Models.Donvitinh>? Donvitinh { get; set; }
 
         public DbSet<websiteSPcongnghe.Models.Nhacungcap>? Nhacungcap { get; set; }
+
+        public DbSet<websiteSPcongnghe.Models.Nhapsanpham>? Nhapsanpham { get; set; }
+
+        public DbSet<websiteSPcongnghe.Models.Nhapchitiet>? Nhapchitiet { get; set; }
+
+        public DbSet<websiteSPcongnghe.Models.Thongtin>? Thongtin { get; set; }
+
+        public DbSet<websiteSPcongnghe.Models.Thongso>? Thongso { get; set; }
+
+        public DbSet<websiteSPcongnghe.Models.Hinhanh>? Hinhanh { get; set; }
     }
 }
