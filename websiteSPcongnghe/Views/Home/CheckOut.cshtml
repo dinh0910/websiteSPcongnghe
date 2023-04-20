@@ -10,12 +10,11 @@
         <div class="container">
             <div class="banner_content d-md-flex justify-content-between align-items-center">
                 <div class="mb-3 mb-md-0">
-                    <h2>Product Checkout</h2>
-                    <p>Very us move be blessed multiply night</p>
+                    <h2>Tiến hành đặt hàng</h2>
                 </div>
                 <div class="page_link">
-                    <a href="index.html">Home</a>
-                    <a href="checkout.html">Product Checkout</a>
+                    <a href="/">Home</a>
+                    <a class="active" href="#">Tiến hành đặt hàng</a>
                 </div>
             </div>
         </div>
@@ -28,47 +27,44 @@
             <div class="row">
                 <form class="row contact_form"
                       action="CreateBill"
-                      method="post"
-                      novalidate="novalidate">
+                      method="post">
                     <div class="col-lg-8">
                         <h3>Chi tiết đặt hàng</h3>
-                        <div class="col-md-6 form-group p_star">
+                        <div class="col-md-8 mb-3 form-group p_star">
+                            <label for="name" class="form-label">Họ và tên</label>
                             <input type="text"
                                    class="form-control"
-                                   name="Ten" />
-                            <span class="placeholder"
-                                  data-placeholder="Họ và tên"></span>
+                                   name="Ten" id="name" placeholder="Nhập họ và tên của bạn" required />
                         </div>
-                        <div class="col-md-6 form-group p_star">
-                            <input type="text"
+                        <div class="col-md-8 form-group p_star">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email"
                                    class="form-control"
                                    id="email"
-                                   name="Email" />
-                            <span class="placeholder" data-placeholder="Email"></span>
+                                   name="Email" placeholder="Nhập email của bạn" required />
                         </div>
-                        <div class="col-md-6 form-group p_star">
+                        <div class="col-md-8 form-group p_star">
+                            <label for="sdt" class="form-label">Số điện thoại</label>
                             <input type="text"
                                    class="form-control"
-                                   id="number"
-                                   name="SoDienThoai" />
-                            <span class="placeholder"
-                                  data-placeholder="Số điện thoại"></span>
+                                   id="sdt"
+                                   name="SoDienThoai" placeholder="Nhập số điện thoại của bạn" required />
                         </div>
-                        <div class="col-md-6 form-group p_star">
+                        <div class="col-md-12 form-group p_star">
+                            <label for="diachi" class="form-label">Địa chỉ</label>
                             <input type="text"
                                    class="form-control"
-                                   id="add1"
-                                   name="DiaChi" />
-                            <span class="placeholder"
-                                  data-placeholder="Địa chỉ"></span>
+                                   id="diachi"
+                                   name="DiaChi" placeholder="Nhập địa chỉ của bạn" required />
                         </div>
-                        @*<div class="col-md-12 form-group">
-                        <textarea class="form-control"
-                        name="message"
-                        id="message"
-                        rows="1"
-                        placeholder="Ghi chú"></textarea>
-                        </div>*@
+                        <div class="col-md-12 form-group">
+                            <label for="cmt" class="form-label">Ghi chú</label>
+                            <textarea class="form-control"
+                                name="GhiChu"
+                                id="cmt"
+                                rows="5"
+                                placeholder="Ghi chú"></textarea>
+                        </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="order_box">

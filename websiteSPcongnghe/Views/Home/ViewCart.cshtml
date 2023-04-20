@@ -1,7 +1,7 @@
 ﻿@model List<websiteSPcongnghe.Models.CartItem>
 
 @{
-
+    var i = 1;
 }
 
 @if(Model.Count > 0){
@@ -30,6 +30,7 @@
                     <table class="table">
                         <thead>
                             <tr>
+                                <th scope="col">STT</th>
                                 <th scope="col">Sản phầm</th>
                                 <th scope="col">Đơn giá</th>
                                 <th scope="col">Số lượng</th>
@@ -44,6 +45,7 @@
                                 amount = item.Sanpham.Thanhtien * item.Soluong;
                                 total += amount;
                                 <tr>
+                                    <td>@(i++)</td>
                                     <td>
                                         <div class="media">
                                             <div class="d-flex">
@@ -58,45 +60,40 @@
                                         <h5>@Html.DisplayFor(modelItem => item.Sanpham.Dongia)</h5>
                                     </td>
                                     <td>
-                                        <div class="product_count">
-                                            <input type="text"
-                                                name="qty"
-                                                id="sst"
-                                                maxlength="12"
-                                                value="1"
-                                                title="Quantity:"
-                                                class="input-text qty" />
-                                            <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-                                            class="increase items-count"
-                                            type="button">
-                                                <i class="lnr lnr-chevron-up"></i>
-                                            </button>
-                                            <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-                                            class="reduced items-count"
-                                            type="button">
-                                                <i class="lnr lnr-chevron-down"></i>
-                                            </button>
-                                        </div>
+                                        <form asp-action="UpdateItem" method="post">
+                                            <input name="id" type="hidden" asp-for="@(item.Sanpham.SanphamID)" />
+                                            <div class="product_count">
+                                                <input type="text"
+                                                    name="quantity"
+                                                    id="sst@(i)"
+                                                    maxlength="12"
+                                                    asp-for="@(item.Soluong)"
+                                                    title="Quantity:"
+                                                    class="input-text qty" />
+                                                <button onclick="var result = document.getElementById('sst@(i)'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
+                                                class="increase items-count"
+                                                type="button">
+                                                    <i class="lnr lnr-chevron-up"></i>
+                                                </button>
+                                                <button onclick="var result = document.getElementById('sst@(i)'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
+                                                class="reduced items-count"
+                                                type="button">
+                                                    <i class="lnr lnr-chevron-down"></i>
+                                                </button>
+                                            </div>
+                                            <button type="submit" class="gray_btn"><i class="fa-solid fa-rotate-right"></i></button>
+                                        </form>
                                     </td>
                                     <td>
                                         <h5>@(amount.ToString("n0"))đ</h5>
                                     </td>
-                                    <td>
+                                    <td class="text-center">
                                         <a asp-action="RemoveItem" asp-route-id="@item.Sanpham.SanphamID">
-                                            <i class="fa-solid fa-trash text-secondary"></i>
+                                            <i class="fa-solid fa-trash text-danger"></i>
                                         </a>
                                     </td>
                                 </tr>
                             }
-                            <tr class="bottom_button">
-                                <td>
-                                    <a class="gray_btn" asp-action="UpdateItem">Cập nhật</a>
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
                             <tr>
                                 <td></td>
                                 <td></td>
