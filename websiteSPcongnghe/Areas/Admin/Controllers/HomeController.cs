@@ -29,22 +29,6 @@ namespace websiteSPcongnghe.Areas.Admin.Controllers
             _notifyService = notyfService;
         }
 
-        [Route("/admin/home")]
-        public async Task<IActionResult> Index()
-        {
-            return View();
-        }
-
-        [Route("/admin")]
-        public IActionResult Login()
-        {
-            if (HttpContext.Session.GetInt32("_IDadmin") == null)
-            {
-                return View();
-            }
-            return RedirectToAction("Index", "Home");
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(TaiKhoanLogin TaiKhoan)
@@ -75,5 +59,33 @@ namespace websiteSPcongnghe.Areas.Admin.Controllers
             }
             return RedirectToAction("Login", "Home");
         }
+
+        [Route("/admin")]
+        public IActionResult Login()
+        {
+            if (HttpContext.Session.GetInt32("_IDadmin") == null)
+            {
+                return View();
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        [Route("/admin/home")]
+        public async Task<IActionResult> Index()
+        {
+            if (HttpContext.Session.GetInt32("_IDadmin") != null)
+            {
+                return View();
+            }
+            return RedirectToAction("Login", "Home");
+        }
+
+        public ActionResult Logout()
+        {
+            HttpContext.Session.Remove("_IDadmin");
+            return RedirectToAction("Index", "Home");
+        }
+
+
     }
 }

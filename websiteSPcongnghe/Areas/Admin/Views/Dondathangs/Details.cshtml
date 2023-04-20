@@ -1,0 +1,78 @@
+﻿@model IEnumerable<websiteSPcongnghe.Models.Dathangchitiet>
+
+@{
+    ViewData["Title"] = "Index";
+    var ddh = (Dondathang)ViewBag.ddh;
+    var i = 1;
+}
+
+<h1 class="mt-4">Chi tiết</h1>
+
+<div>
+    <button class="btn btn-info" id="print" onclick="printContent('printerDiv');">Print</button>
+</div>
+
+<div class="page-inner" id="printerDiv">
+    <h4 class="mb-3" style="font-size:18px;">Tên shop: Eiser Shop</h4>
+    <h4 class="mb-3" style="font-size:18px;">Địa chỉ: số 18, Ung Văn Khiêm, P. Đông Xuyên, TP. Long Xuyên, Tỉnh An Giang</h4>
+    <div class="text-center text-uppercase fs-3 fw-bold">Đơn đặt hàng</div>
+    <h4 class="mb-3" style="font-size:18px;">Tên khách hàng: @ddh.HovaTen</h4>
+    <h4 class="mb-3" style="font-size:18px;">Email: @ddh.Email</h4>
+    <h4 class="mb-3" style="font-size:18px;">Số điện thoại: @ddh.Sdt</h4>
+    <h4 class="mb-3" style="font-size:18px;">Địa chỉ: @ddh.Diachi</h4>
+    <h4 class="mb-3" style="font-size:18px;">Ghi chú: @ddh.Ghichu</h4>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    STT
+                </th>
+                <th>
+                    Tên sản phẩm
+                </th>
+                <th>
+                    Đơn giá
+                </th>
+                <th>
+                    Số lượng
+                </th>
+                <th>
+                    Thành tiền
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @(i++)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Sanpham.Tensanpham)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Dongia)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Soluong)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Thanhtien)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function printContent(el) {
+        var restorepage = $('body').html();
+        var printcontent = $('#' + el).clone();
+        $('body').empty().html(printcontent);
+        window.print();
+        $('body').html(restorepage);
+    }
+</script>

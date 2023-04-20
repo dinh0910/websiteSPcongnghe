@@ -83,6 +83,15 @@ namespace websiteSPcongnghe.Controllers
             return View(TaiKhoan);
         }
 
+        public ActionResult Logout()
+        {
+            HttpContext.Session.Remove("_TaiKhoanID");
+            HttpContext.Session.Remove("_TenDangNhap");
+            HttpContext.Session.Remove("_MatKhau");
+
+            return RedirectToAction("Index", "Home");
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register([Bind("TaikhoanID,Tendangnhap,Matkhau")] Taikhoan TaiKhoan)
@@ -198,7 +207,7 @@ namespace websiteSPcongnghe.Controllers
             return View(GetCartItems());
         }
 
-        public async Task<IActionResult> CreateBill(string Ten, string SoDienThoai, string DiaChi, string Email)
+        public async Task<IActionResult> CreateBill(string Ten, string SoDienThoai, string DiaChi, string Email, string Ghichu)
         {
             // lưu hóa đơn
             var bill = new Dondathang();
@@ -207,6 +216,7 @@ namespace websiteSPcongnghe.Controllers
             bill.Sdt = SoDienThoai;
             bill.Diachi = DiaChi;
             bill.Email = Email;
+            bill.Ghichu = Ghichu;
 
             _context.Add(bill);
             await _context.SaveChangesAsync();

@@ -67,7 +67,7 @@
                                         @Html.DisplayFor(modelItem => item.Chinhsach)
                                     </td>
                                     <td>
-                                        <a asp-action="Delete" asp-route-id="@item.SanphamID">Delete</a>
+                                        <a asp-action="DeleteThongTin" asp-route-id="@item.SanphamID">Delete</a>
                                     </td>
                                 </tr>
                             }
@@ -108,7 +108,7 @@
                                         @Html.DisplayFor(modelItem => item.Noidung)
                                     </td>
                                     <td>
-                                        <a asp-action="Delete" asp-route-id="@item.SanphamID">Delete</a>
+                                        <a asp-action="DeleteThongSo" asp-route-id="@item.SanphamID">Delete</a>
                                     </td>
                                 </tr>
                             }
@@ -145,7 +145,7 @@
                                         />
                                     </td>
                                     <td>
-                                        <a asp-action="Delete" asp-route-id="@item.SanphamID">Delete</a>
+                                        <a asp-action="DeleteHinhAnh" asp-route-id="@item.HinhanhID">Delete</a>
                                     </td>
                                 </tr>
                             }

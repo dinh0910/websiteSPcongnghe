@@ -16,6 +16,8 @@ namespace websiteSPcongnghe.Models
 
         public string? Email { get; set; }
 
+        public string? Ghichu { get; set; }
+
         [DisplayFormat(DataFormatString = "{0:#,##0}đ")]
         public int Tongtien { get; set; }
     }

@@ -358,5 +358,38 @@ namespace websiteSPcongnghe.Areas.Admin.Controllers
 
             return RedirectToAction("Details", "SanPhams", routeValues: new { id });
         }
+
+        public async Task<IActionResult> DeleteThongTin(int? id)
+        {
+            var tt = await _context.Thongtin
+                .FirstOrDefaultAsync(m => m.SanphamID == id);
+
+            _context.Thongtin.Remove(tt);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Details", "SanPhams", routeValues: new { id });
+        }
+
+        public async Task<IActionResult> DeleteThongSo(int? id)
+        {
+            var ts = await _context.Thongso
+                .FirstOrDefaultAsync(m => m.SanphamID == id);
+
+            _context.Thongso.Remove(ts);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Details", "SanPhams", routeValues: new { id });
+        }
+
+        public async Task<IActionResult> DeleteHinhAnh(int? id)
+        {
+            var tt = await _context.Hinhanh
+                .FirstOrDefaultAsync(m => m.HinhanhID == id);
+
+            _context.Hinhanh.Remove(tt);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Details", "SanPhams", routeValues: new { id });
+        }
     }
 }

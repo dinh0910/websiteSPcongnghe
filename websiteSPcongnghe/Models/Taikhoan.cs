@@ -16,7 +16,7 @@
 
         public string? Email { get; set; }
 
-        public int QuyenhanID { get; set; }
+        public int QuyenhanID { get; set; } = 3;
         public Quyenhan? Quyenhans { get; set; }
     }
 }

@@ -43,5 +43,7 @@ namespace websiteSPcongnghe.Data
         public DbSet<websiteSPcongnghe.Models.Dondathang>? Dondathang { get; set; }
 
         public DbSet<websiteSPcongnghe.Models.Dathangchitiet>? Dathangchitiet { get; set; }
+
+        public DbSet<websiteSPcongnghe.Models.Loaisanpham>? Loaisanpham { get; set; }
     }
 }

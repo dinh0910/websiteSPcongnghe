@@ -1,0 +1,50 @@
+﻿@model websiteSPcongnghe.Models.Loaisanpham
+
+@{
+    ViewData["Title"] = "Index";
+    var dm = ViewBag.danhmuc as IQueryable<websiteSPcongnghe.Models.Danhmuc>;
+}
+
+<div class="my-5">
+    <a asp-action="CreateMenu" asp-route-id="@Model.LoaisanphamID" class="btn btn-secondary btn-icon-split">
+        <span class="icon text-white-50">
+            <i class="fas fa-arrow-right"></i>
+        </span>
+        <span class="text">Thêm danh mục</span>
+    </a>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Chi tiết loại sản phẩm @Model.Ten</h6>
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>
+                        Tên danh mục
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in dm)
+                {
+                    @if (item.LoaisanphamID == Model.LoaisanphamID)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Tendanhmuc)
+                            </td>
+                            <td>
+@*                                <a asp-action="EditMenu" asp-route-id="@item.DanhmucID">Edit</a> |*@
+                                <a asp-action="DeleteMenu" asp-route-id="@item.DanhmucID">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using websiteSPcongnghe.Data;
 
@@ -11,9 +12,10 @@ using websiteSPcongnghe.Data;
 namespace websiteSPcongnghe.Migrations
 {
     [DbContext(typeof(websiteSPcongngheContext))]
-    partial class websiteSPcongngheContextModelSnapshot : ModelSnapshot
+    [Migration("20230420054736_Init6")]
+    partial class Init6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,8 +39,6 @@ namespace websiteSPcongnghe.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("DanhmucID");
-
-                    b.HasIndex("LoaisanphamID");
 
                     b.ToTable("Danhmuc");
                 });
@@ -103,9 +103,6 @@ namespace websiteSPcongnghe.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Ghichu")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("HovaTen")
@@ -418,17 +415,6 @@ namespace websiteSPcongnghe.Migrations
                     b.HasKey("ThuonghieuID");
 
                     b.ToTable("Thuonghieu");
-                });
-
-            modelBuilder.Entity("websiteSPcongnghe.Models.Danhmuc", b =>
-                {
-                    b.HasOne("websiteSPcongnghe.Models.Loaisanpham", "Loaisanphams")
-                        .WithMany()
-                        .HasForeignKey("LoaisanphamID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Loaisanphams");
                 });
 
             modelBuilder.Entity("websiteSPcongnghe.Models.Dathangchitiet", b =>
