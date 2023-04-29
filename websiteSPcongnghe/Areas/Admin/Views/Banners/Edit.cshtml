@@ -20,6 +20,13 @@
                 <span asp-validation-for="Banner" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label class="control-label">Active</label>
+                <select asp-for="Active" class="form-control">
+                    <option active>--Select--</option>
+                    <option value="active">Active</option>
+                </select>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>

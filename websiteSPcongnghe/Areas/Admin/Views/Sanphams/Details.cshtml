@@ -58,13 +58,13 @@
                             {
                                 <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Tronghop)
+                                @Html.DisplayFor(modelItem => item.Tronghop)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Baohanh)
+                                @Html.DisplayFor(modelItem => item.Baohanh)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Chinhsach)
+                                @Html.DisplayFor(modelItem => item.Chinhsach)
                                     </td>
                                     <td>
                                         <a asp-action="DeleteThongTin" asp-route-id="@item.SanphamID">Delete</a>
@@ -76,45 +76,47 @@
                 </table>
             </div>
         </div>
-    </div>
-    <div class="col-lg-6 mb-4">
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Thông số @Model.Tensanpham</h6>
-            </div>
-            <div class="card-body">
-                <table class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th>
-                                Tên thông số
-                            </th>
-                            <th>
-                                Nội dung
-                            </th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in ts)
-                        {
-                            @if (item.SanphamID == Model.SanphamID)
-                            {
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Thông số @Model.Tensanpham</h6>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered table-hover">
+                            <thead>
                                 <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Tenthongso)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Noidung)
-                                    </td>
-                                    <td>
-                                        <a asp-action="DeleteThongSo" asp-route-id="@item.SanphamID">Delete</a>
-                                    </td>
+                                    <th>
+                                        Tên thông số
+                                    </th>
+                                    <th>
+                                        Nội dung
+                                    </th>
+                                    <th></th>
                                 </tr>
-                            }
-                        }
-                    </tbody>
-                </table>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in ts)
+                                {
+                                    @if (item.SanphamID == Model.SanphamID)
+                                    {
+                                        <tr>
+                                            <td>
+                                        @Html.DisplayFor(modelItem => item.Tenthongso)
+                                            </td>
+                                            <td>
+                                        @Html.DisplayFor(modelItem => item.Noidung)
+                                            </td>
+                                            <td>
+                                                <a asp-action="DeleteThongSo" asp-route-id="@item.SanphamID">Delete</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -239,6 +241,13 @@
                         <div class="form-group mb-3">
                             <label class="control-label mb-1">Hình ảnh</label>
                             <input type="file" name="file" class="form-control" />
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="control-label">Active</label>
+                            <select name="Active" class="form-control">
+                                <option active>--Select--</option>
+                                <option value="active">Active</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <input type="submit" value="Thêm" class="btn btn-primary" />

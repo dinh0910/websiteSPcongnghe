@@ -1,0 +1,116 @@
+﻿@model IEnumerable<websiteSPcongnghe.Models.Sanpham>
+
+@{
+    var dm = (Danhmuc)ViewBag.d;
+    var d = ViewBag.dm as IQueryable<websiteSPcongnghe.Models.Danhmuc>;
+    var th = ViewBag.th as IQueryable<websiteSPcongnghe.Models.Thuonghieu>;
+}
+
+<section class="banner_area" style="min-height: 100px;">
+    <div class="banner_inner d-flex align-items-center" style="min-height: 100px;">
+        <div class="container">
+            <div class="banner_content d-md-flex justify-content-between align-items-center">
+                <div class="mb-3 mb-md-0">
+                    <h2>@dm.Tendanhmuc</h2>
+                </div>
+                <div class="page_link">
+                    <a href="/">Home</a>
+                    <a href="#" class="active">@dm.Tendanhmuc</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cat_product_area section_gap" style="padding: 30px 0px;">
+    <div class="container">
+        <div class="row flex-row-reverse">
+            <div class="col-lg-9">
+                <div class="product_top_bar">
+                    <div class="left_dorp">
+@*                        <select class="sorting">
+                            <option value="1">Default sorting</option>
+                            <option value="2">Default sorting 01</option>
+                            <option value="4">Default sorting 02</option>
+                        </select>
+                        <select class="show">
+                            <option value="1">Show 12</option>
+                            <option value="2">Show 14</option>
+                            <option value="4">Show 16</option>
+                        </select>*@
+                    </div>
+                </div>
+
+                <div class="latest_product_inner">
+                    <div class="row">
+                        @foreach(var item in Model){
+                            <div class="col-lg-4 col-md-6">
+                                <div class="single-product shadow">
+                                    <div class="product-img">
+                                        <img class="card-img"
+                                             src="~/images/products/@item.Hinhanh"
+                                             alt="" />
+                                        <div class="p_icon">
+                                            <a asp-action="Details" asp-route-id="@item.SanphamID">
+                                                <i class="fa-solid fa-eye"></i>
+                                            </a>
+                                            <a asp-action="AddToList">
+                                                <i class="fa-solid fa-heart"></i>
+                                            </a>
+                                            <a asp-action="AddToCart" asp-route-id="@item.SanphamID">
+                                                <i class="fa-solid fa-cart-shopping"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="product-btm">
+                                        <a asp-action="Details" asp-route-id="@item.SanphamID class="d-block">
+                                            <h4>@item.Tensanpham</h4>
+                                        </a>
+                                        <div class="mt-3">
+                                            <span class="mr-4">@Html.DisplayFor(modelItem => item.Thanhtien)</span>
+                                            @*<del>@Html.DisplayFor(modelItem => item.Dongia)</del>*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="left_sidebar_area">
+                    <aside class="left_widgets p_filter_widgets">
+                        <div class="l_w_title">
+                            <h3>Danh mục</h3>
+                        </div>
+                        <div class="widgets_inner">
+                            <ul class="list">
+                                @foreach(var item in d){
+                                    <li class="active">
+                                        <a asp-action="Category" asp-route-id="@item.DanhmucID">@item.Tendanhmuc</a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </aside>
+
+                    <aside class="left_widgets p_filter_widgets">
+                        <div class="l_w_title">
+                            <h3>Thương hiệu</h3>
+                        </div>
+                        <div class="widgets_inner">
+                            <ul class="list">
+                                @foreach(var item in th){
+                                    <li>
+                                        <a asp-action="Trademark" asp-route-id="@item.ThuonghieuID">@item.Tenthuonghieu</a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

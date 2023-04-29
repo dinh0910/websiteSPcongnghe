@@ -5,5 +5,7 @@
         public int DanhsachBannerID { get; set; }
 
         public string? Banner { get; set; }
+
+        public string? Active { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 
 @{
     var i = 0;
+    var banner = ViewBag.banner as IQueryable<websiteSPcongnghe.Models.DanhsachBanner>;
 }
 
 <!--================Home Banner Area =================-->
@@ -12,9 +13,18 @@
                 <div class="col-lg-12">
                     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img class="d-block w-100" style="height: 450px" src="~/images/banners/282_laptopaz_banner_top4_laptop_gaming.jpg" />
-                            </div>
+                            @foreach(var item in banner){
+                                if (item.Active == "active") {
+                                    <div class="carousel-item active">
+                                        <img class="d-block w-100" style="height: 450px" src="~/images/banners/@item.Banner" />
+                                    </div>
+                                } else
+                                {
+                                    <div class="carousel-item">
+                                        <img class="d-block w-100" style="height: 450px" src="~/images/banners/@item.Banner" />
+                                    </div>
+                                }
+                            }
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -84,23 +94,22 @@
             <div class="col-lg-12">
                 <div class="main_title">
                     <h2><span>Sản phẩm đặc trưng</span></h2>
-                    <p>Bring called seed first of third give itself now ment</p>
                 </div>
             </div>
         </div>
 
         <div class="row">
             @foreach(var item in Model){
-                if (i < 3) {
-                    <div class="col-lg-4 col-md-6">
-                        <div class="single-product shadow p-3 mb-5">
+                if (i < 8) {
+                    <div class="col-lg-3 col-md-6">
+                        <div class="single-product shadow">
                             <div class="product-img">
                                 <img class="img-fluid w-100" src="~/images/products/@item.Hinhanh" alt="" />
                                 <div class="p_icon">
                                     <a asp-action="Details" asp-route-id="@item.SanphamID">
                                         <i class="fa-solid fa-eye"></i>
                                     </a>
-                                    <a asp-action="AddToList">
+                                    <a asp-action="AddToCartLove" asp-route-id="@item.SanphamID">
                                         <i class="fa-solid fa-heart"></i>
                                     </a>
                                     <a asp-action="AddToCart" asp-route-id="@item.SanphamID">
@@ -109,12 +118,12 @@
                                 </div>
                             </div>
                             <div class="product-btm">
-                                <a href="#" class="d-block">
+                                <a asp-action="Details" asp-route-id="@item.SanphamID" class="d-block">
                                     <h4>@item.Tensanpham</h4>
                                 </a>
                                 <div class="mt-3">
                                     <span class="mr-4">@Html.DisplayFor(modelItem => item.Thanhtien)</span>
-                                    <del>@Html.DisplayFor(modelItem => item.Dongia)</del>
+                                    @*<del>@Html.DisplayFor(modelItem => item.Dongia)</del>*@
                                 </div>
                             </div>
                         </div>

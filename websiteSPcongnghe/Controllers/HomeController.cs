@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System.Diagnostics;
+using System.Xml.Linq;
 using websiteSPcongnghe.Data;
 using websiteSPcongnghe.Libs;
 using websiteSPcongnghe.Models;
+using XAct.UI.Views;
 
 namespace websiteSPcongnghe.Controllers
 {
@@ -33,22 +35,39 @@ namespace websiteSPcongnghe.Controllers
         public async Task<IActionResult> Index()
         {
             var sp = _context.Sanpham.Include(s => s.Danhmucs).Include(s => s.Thuonghieus);
+            ViewBag.lsp = _context.Loaisanpham;
+            ViewBag.dm = _context.Danhmuc.Include(d => d.Loaisanphams);
+            ViewBag.banner = _context.DanhsachBanner;
             return View(await sp.ToListAsync());
         }
         
         public IActionResult Login()
         {
+            ViewBag.lsp = _context.Loaisanpham;
+            ViewBag.dm = _context.Danhmuc.Include(d => d.Loaisanphams);
             return View();
         }
 
         public IActionResult Register()
         {
+            ViewBag.lsp = _context.Loaisanpham;
+            ViewBag.dm = _context.Danhmuc.Include(d => d.Loaisanphams);
             return View();
         }
 
         public IActionResult CheckOrder()
         {
+            ViewBag.lsp = _context.Loaisanpham;
+            ViewBag.dm = _context.Danhmuc.Include(d => d.Loaisanphams);
             return View();
+        }
+
+        public async Task<IActionResult> Ordered(string? sdt)
+        {
+            var ddh = _context.Dondathang.Where(d => d.Sdt.Contains(sdt));
+            ViewBag.lsp = _context.Loaisanpham;
+            ViewBag.dm = _context.Danhmuc.Include(d => d.Loaisanphams);
+            return View(await ddh.ToListAsync());
         }
 
         [HttpPost]
@@ -197,13 +216,16 @@ namespace websiteSPcongnghe.Controllers
 
         public IActionResult ViewCart()
         {
-            ViewBag.danhmuc = _context.Danhmuc;
+            ViewBag.lsp = _context.Loaisanpham;
+            ViewBag.dm = _context.Danhmuc.Include(d => d.Loaisanphams);
 
             return View(GetCartItems());
         }
 
         public IActionResult CheckOut()
         {
+            ViewBag.lsp = _context.Loaisanpham;
+            ViewBag.dm = _context.Danhmuc.Include(d => d.Loaisanphams);
             return View(GetCartItems());
         }
 
@@ -247,10 +269,102 @@ namespace websiteSPcongnghe.Controllers
 
         public IActionResult SuccessOrder()
         {
-            ViewBag.danhmuc = _context.Danhmuc;
-
+            ViewBag.lsp = _context.Loaisanpham;
+            ViewBag.dm = _context.Danhmuc.Include(d => d.Loaisanphams);
             return View();
         }
 
+        public async Task<IActionResult> Category(int? id)
+        {
+            var grid = _context.Sanpham.Where(d => d.DanhmucID == id);
+            ViewBag.lsp = _context.Loaisanpham;
+            ViewBag.dm = _context.Danhmuc.Include(d => d.Loaisanphams);
+            ViewBag.d = _context.Danhmuc.FirstOrDefault(d => d.DanhmucID == id);
+
+            ViewBag.th = _context.Thuonghieu;
+
+            return View(grid);
+        }
+
+        public async Task<IActionResult> Search(string? s)
+        {
+            var search = _context.Sanpham.Where(sp => sp.Tensanpham.Contains(s));
+            ViewBag.lsp = _context.Loaisanpham;
+            ViewBag.dm = _context.Danhmuc.Include(d => d.Loaisanphams);
+            ViewBag.th = _context.Thuonghieu;
+            return View(search);
+        }
+
+        List<ListLoved> GetCartsLove()
+        {
+            var jsoncartlove = HttpContext.Request.Cookies[$"{HttpContext.Session.GetInt32("_TaiKhoanID")}_cartlove"];
+            if (!string.IsNullOrEmpty(jsoncartlove))
+            {
+                return JsonConvert.DeserializeObject<List<ListLoved>>(jsoncartlove);
+            }
+            return new List<ListLoved>();
+        }
+
+        void SaveCartLoveSession(List<ListLoved> love)
+        {
+            string jsoncartlove = JsonConvert.SerializeObject(love);
+            HttpContext.Response.Cookies.Append($"{HttpContext.Session.GetInt32(SessionTK)}_cartlove", jsoncartlove);
+        }
+
+        public async Task<IActionResult> AddToCartLove(int id)
+        {
+            if (HttpContext.Session.GetInt32("_TaiKhoanID") != null)
+            {
+                var product = await _context.Sanpham
+                    .FirstOrDefaultAsync(m => m.SanphamID == id);
+
+                var cart = GetCartsLove();
+                cart.Add(new ListLoved() { SanPhams = product });
+
+                SaveCartLoveSession(cart);
+                return RedirectToAction(nameof(ListLoved));
+            }
+            return RedirectToAction("Login", "Home");
+        }
+
+        public async Task<IActionResult> RemoveItemLove(int id)
+        {
+            var cart = GetCartsLove();
+            var item = cart.Find(p => p.SanPhams.SanphamID == id);
+            if (item != null)
+            {
+                cart.Remove(item);
+            }
+            SaveCartLoveSession(cart);
+            return RedirectToAction(nameof(ListLoved));
+        }
+
+        public IActionResult ViewLove()
+        {
+            if (HttpContext.Session.GetInt32("_TaiKhoanID") != null)
+            {
+                ViewBag.lsp = _context.Loaisanpham;
+                ViewBag.dm = _context.Danhmuc.Include(d => d.Loaisanphams);
+
+                return View(GetCartsLove());
+            }
+            return RedirectToAction("Login", "Home");
+        }
+
+        public async Task<IActionResult> Details(int? id)
+        {
+            var sp = await _context.Sanpham
+                .Include(s => s.Danhmucs)
+                .Include(s => s.Thuonghieus)
+                .FirstOrDefaultAsync(s => s.SanphamID == id);
+            ViewBag.lsp = _context.Loaisanpham;
+            ViewBag.dm = _context.Danhmuc.Include(d => d.Loaisanphams);
+            ViewBag.ha = _context.Hinhanh.Include(h => h.Sanphams);
+
+            ViewBag.thongtin = _context.Thongtin.FirstOrDefault(t => t.SanphamID == id);
+            ViewBag.thongso = _context.Thongso;
+
+            return View(sp);
+        }
     }
 }

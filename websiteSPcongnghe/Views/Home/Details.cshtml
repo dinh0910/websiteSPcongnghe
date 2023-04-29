@@ -1,0 +1,201 @@
+﻿@model websiteSPcongnghe.Models.Sanpham
+
+@{
+    var i = 0;
+    var ha = ViewBag.ha as IQueryable<websiteSPcongnghe.Models.Hinhanh>;
+    var ts = ViewBag.thongso as IQueryable<websiteSPcongnghe.Models.Thongso>;
+    var tt = (Thongtin)ViewBag.thongtin;
+}
+
+<section class="banner_area" style="min-height: 100px;">
+    <div class="banner_inner d-flex align-items-center" style="min-height: 100px;">
+        <div class="container">
+            <div class="banner_content d-md-flex justify-content-between align-items-center">
+                <div class="mb-3 mb-md-0">
+                    <h2>@Model.Tensanpham</h2>
+                </div>
+                <div class="page_link">
+                    <a href="index.html">Home</a>
+                    <a href="single-product.html">@Model.Tensanpham</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="product_image_area" style="padding: 30px 0px;">
+    <div class="container">
+        <div class="row s_product_inner">
+            <div class="col-sm-5">
+                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        @foreach(var item in ha)
+                        {
+                            if(item.SanphamID == Model.SanphamID)
+                            {
+                                if(item.Active == "active")
+                                {
+                                    <div class="carousel-item active">
+                                        <img src="~/images/products/@item.Anh" class="d-block w-100">
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="carousel-item">
+                                        <img src="~/images/products/@item.Anh" class="d-block w-100">
+                                    </div>      
+                                }
+                            }
+                        }
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+            <div class="col-sm-6 offset-sm-1">
+                <div class="s_product_text">
+                    <h3>@Model.Tensanpham</h3>
+                    <h2>@(Model.Thanhtien.ToString("n0"))đ</h2>
+                    <ul class="list">
+                        <li>
+                            <a class="active" asp-action="Category" asp-route-id="@Model.DanhmucID">
+                                <span>Loại</span> : @Model.Danhmucs.Tendanhmuc
+                            </a>
+                        </li>
+                        <li>
+                            @if(Model.Soluong > 0)
+                            {
+                                <a href="#"> <span>Tình trạng</span> : Còn hàng</a>
+                            } else
+                            {
+                                <a href="#"> <span>Tình trạng</span> : Hết hàng</a>
+                            }
+                        </li>
+                    </ul>
+                    <div class="product_count">
+                        <label for="qty">Số lượng:</label>
+                        <input type="text"
+                                name="qty"
+                                id="sst"
+                                maxlength="12"
+                                value="1"
+                                title="Quantity:"
+                                class="input-text qty" />
+                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
+                                class="increase items-count"
+                                type="button">
+                            <i class="lnr lnr-chevron-up"></i>
+                        </button>
+                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
+                                class="reduced items-count"
+                                type="button">
+                            <i class="lnr lnr-chevron-down"></i>
+                        </button>
+                    </div>
+                    <div class="card_area">
+                        @if(Model.Soluong > 0)
+                        {
+                            <a class="main_btn" asp-action="AddToCart" asp-route-id="@Model.SanphamID">Thêm vào giỏ</a>
+                        } else
+                        {
+                            <a class="main_btn disabled">Hết hàng</a>
+                        }
+                        <a class="icon_btn" asp-action="AddToCartLove" asp-route-id="@Model.SanphamID">
+                            <i class="lnr lnr lnr-heart"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--================End Single Product Area =================-->
+    <!--================Product Description Area =================-->
+    <section class="product_description_area">
+        <div class="container">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active"
+                       id="profile-tab"
+                       data-toggle="tab"
+                       href="#profile"
+                       role="tab"
+                       aria-controls="profile"
+                       aria-selected="false">Thông tin</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"
+                       id="contact-tab"
+                       data-toggle="tab"
+                       href="#contact"
+                       role="tab"
+                       aria-controls="contact"
+                       aria-selected="false">Thông số</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane show active"
+                     id="profile"
+                     role="tabpanel"
+                     aria-labelledby="profile-tab">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <h5>Trong hộp</h5>
+                                    </td>
+                                    <td>
+                                        <h5>@tt.Tronghop</h5>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h5>Bảo hành</h5>
+                                    </td>
+                                    <td>
+                                        <h5>@tt.Baohanh</h5>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h5>Chính sách</h5>
+                                    </td>
+                                    <td>
+                                        <h5>@tt.Chinhsach</h5>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade"
+                     id="contact"
+                     role="tabpanel"
+                     aria-labelledby="contact-tab">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody>
+                                @foreach(var item in ts){
+                                    <tr>
+                                        <td>
+                                            <h5>@item.Tenthongso</h5>
+                                        </td>
+                                        <td>
+                                            <h5>@item.Noidung</h5>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

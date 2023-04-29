@@ -40,7 +40,7 @@ namespace websiteSPcongnghe.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(IFormFile file, [Bind("DanhsachBannerID,Banner")] DanhsachBanner danhsachBanner)
+        public async Task<IActionResult> Create(IFormFile file, [Bind("DanhsachBannerID,Banner,Active")] DanhsachBanner danhsachBanner)
         {
             if (ModelState.IsValid)
             {
@@ -73,7 +73,7 @@ namespace websiteSPcongnghe.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, IFormFile file, [Bind("DanhsachBannerID,Banner")] DanhsachBanner danhsachBanner)
+        public async Task<IActionResult> Edit(int id, IFormFile file, [Bind("DanhsachBannerID,Banner,Active")] DanhsachBanner danhsachBanner)
         {
             if (id != danhsachBanner.DanhsachBannerID)
             {

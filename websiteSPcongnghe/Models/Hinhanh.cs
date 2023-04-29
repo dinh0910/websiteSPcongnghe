@@ -8,5 +8,7 @@
         public Sanpham? Sanphams { get; set; }
 
         public string? Anh { get; set; }
+
+        public string? Active { get; set; } = null;
     }
 }

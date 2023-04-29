@@ -2,6 +2,11 @@
 @using Newtonsoft.Json
 @inject IHttpContextAccessor HttpContextAccessor
 
+@{
+    var lsp = ViewBag.lsp as IQueryable<websiteSPcongnghe.Models.Loaisanpham>;
+    var dm = ViewBag.dm as IQueryable<websiteSPcongnghe.Models.Danhmuc>;
+}
+
 <header class="header_area">
     <div class="top_menu">
         <div class="container">
@@ -55,38 +60,22 @@
                         <div class="col-lg-7 pr-0">
                             <ul class="nav navbar-nav center_nav pull-right">
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="index.html">Trang chủ</a>
+                                    <a class="nav-link" href="/">Trang chủ</a>
                                 </li>
-                                <li class="nav-item submenu dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                                       aria-expanded="false">Điện thoại</a>
-                                    <ul class="dropdown-menu">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="category.html">Shop Category</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item submenu dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                                       aria-expanded="false">Laptop</a>
-                                    <ul class="dropdown-menu">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="blog.html">Blog</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item submenu dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                                       aria-expanded="false">Phụ kiện</a>
-                                    <ul class="dropdown-menu">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="tracking.html">Tracking</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="elements.html">Elements</a>
-                                        </li>
-                                    </ul>
-                                </li>
+                                @foreach(var item in lsp)
+                                {
+                                    <li class="nav-item submenu dropdown">
+                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                           aria-expanded="false">@item.Ten</a>
+                                        <ul class="dropdown-menu">
+                                            @foreach(var i in dm){
+                                                <li class="nav-item">
+                                                    <a class="nav-link" asp-action="Category" asp-route-id="@i.DanhmucID">@i.Tendanhmuc</a>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </li>
+                                }
                                 <li class="nav-item">
                                     <a class="nav-link" href="contact.html">Liên hệ</a>
                                 </li>
@@ -96,6 +85,12 @@
                         <div class="col-lg-5 pr-0">
                             <div class="header__cart">
                                 <ul class="nav navbar-nav navbar-right right_nav pull-right">
+                                    <li class="nav-item">
+                                        <a type="button" class="icons" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            <i class="fa-solid fa-magnifying-glass"></i>
+                                        </a>
+                                    </li>
+
                                     <li class="nav-item">
                                         <a asp-action="CheckOrder" class="icons">
                                             <i class="fa-solid fa-truck-fast"></i>
@@ -118,7 +113,7 @@
                                     </li>
 
                                     <li class="nav-item">
-                                        <a href="#" class="icons">
+                                        <a asp-action="ViewLove" class="icons">
                                             <i class="fa-solid fa-heart"></i>
                                             @{
                                                 string jsoncartl = Context.Request.Cookies[$"{Context.Session.GetInt32("_TaiKhoanID")}_cartlove"];
@@ -145,3 +140,23 @@
         </div>
     </div>
 </header>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Tìm kiếm sản phẩm</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/home/search">
+                    <div class="form-floating mb-2">
+                        <input class="form-control" id="floatingTextarea" name="s" />
+                        <label for="floatingTextarea">Tìm kiếm</label>
+                    </div>
+                    <button class="btn text-white" style="background-color:#71CD14" type="submit">Tìm kiếm</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

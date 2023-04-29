@@ -332,7 +332,7 @@ namespace websiteSPcongnghe.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Details(int id, [Bind("ThongtinID,SanphamID,Tronghop,Baohanh,Chinhsach")] Thongtin thongTin
             , [Bind("ThongsoID,SanphamID,Tenthongso,Noidung")] Thongso thongSo,
-            IFormFile file, [Bind("HinhanhID,SanphamID,Anh")] Hinhanh hinhAnh)
+            IFormFile file, [Bind("HinhanhID,SanphamID,Anh,Active")] Hinhanh hinhAnh)
         {
             if (thongTin.Baohanh != null)
             {

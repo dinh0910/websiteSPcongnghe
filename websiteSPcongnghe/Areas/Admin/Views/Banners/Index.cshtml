@@ -24,6 +24,7 @@
                     <th>
                         Banner
                     </th>
+                    <th>Active</th>
                     <th></th>
                 </tr>
             </thead>
@@ -34,6 +35,7 @@
                         <td>
                             <img src="~/images/banners/@Html.DisplayFor(modelItem => item.Banner)" class="img-thumbnail" width="200" height="150" />
                         </td>
+                        <td>@item.Active</td>
                         <td>
                             <a asp-action="Edit" asp-route-id="@item.DanhsachBannerID">Edit</a> |
                             <a asp-action="Delete" asp-route-id="@item.DanhsachBannerID">Delete</a>

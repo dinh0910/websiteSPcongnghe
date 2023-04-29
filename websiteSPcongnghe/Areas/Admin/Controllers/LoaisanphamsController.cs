@@ -22,7 +22,7 @@ namespace websiteSPcongnghe.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             return _context.Loaisanpham != null ?
-                        View(await _context.Loaisanpham.ToListAsync()) :
+                        View(await _context.Loaisanpham.OrderByDescending(l => l.LoaisanphamID).ToListAsync()) :
                         Problem("Entity set 'websiteSPcongngheContext.Loaisanpham'  is null.");
         }
 
