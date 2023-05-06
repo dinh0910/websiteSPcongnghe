@@ -78,7 +78,7 @@ namespace websiteSPcongnghe.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, IFormFile file, [Bind("SanphamID,Tensanpham,DanhmucID,ThuonghieuID,Hinhanh,Dongia,Sale,Thanhtien")] Sanpham sanpham)
+        public async Task<IActionResult> Edit(int id, IFormFile? file, [Bind("SanphamID,Tensanpham,DanhmucID,ThuonghieuID,Hinhanh,Dongia,Sale,Thanhtien")] Sanpham sanpham)
         {
             if (id != sanpham.SanphamID)
             {
@@ -370,10 +370,10 @@ namespace websiteSPcongnghe.Areas.Admin.Controllers
             return RedirectToAction("Details", "SanPhams", routeValues: new { id });
         }
 
-        public async Task<IActionResult> DeleteThongSo(int? id)
+        public async Task<IActionResult> DeleteThongSo(int? id, int idha)
         {
             var ts = await _context.Thongso
-                .FirstOrDefaultAsync(m => m.SanphamID == id);
+                .FirstOrDefaultAsync(m => m.ThongsoID == idha);
 
             _context.Thongso.Remove(ts);
             await _context.SaveChangesAsync();
@@ -381,10 +381,10 @@ namespace websiteSPcongnghe.Areas.Admin.Controllers
             return RedirectToAction("Details", "SanPhams", routeValues: new { id });
         }
 
-        public async Task<IActionResult> DeleteHinhAnh(int? id)
+        public async Task<IActionResult> DeleteHinhAnh(int? id, int idha)
         {
             var tt = await _context.Hinhanh
-                .FirstOrDefaultAsync(m => m.HinhanhID == id);
+                .FirstOrDefaultAsync(m => m.HinhanhID == idha);
 
             _context.Hinhanh.Remove(tt);
             await _context.SaveChangesAsync();

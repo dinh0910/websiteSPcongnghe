@@ -108,7 +108,13 @@
                                         @Html.DisplayFor(modelItem => item.Noidung)
                                             </td>
                                             <td>
-                                                <a asp-action="DeleteThongSo" asp-route-id="@item.SanphamID">Delete</a>
+                                                <form asp-action="DeleteHinhAnh">
+                                                    <input type="hidden" name="id" value="@item.SanphamID" />
+                                                    <input type="hidden" name="idha" value="@item.ThongsoID" />
+                                                    <button type="submit" class="btn btn-danger">
+                                                        <i class="fa-solid fa-trash text-white"></i>
+                                                    </button>
+                                                </form>
                                             </td>
                                         </tr>
                                     }
@@ -147,7 +153,13 @@
                                         />
                                     </td>
                                     <td>
-                                        <a asp-action="DeleteHinhAnh" asp-route-id="@item.HinhanhID">Delete</a>
+                                        <form asp-action="DeleteHinhAnh">
+                                            <input type="hidden" name="id" value="@item.SanphamID" />
+                                            <input type="hidden" name="idha" value="@item.HinhanhID" />
+                                            <button type="submit" class="btn btn-danger">
+                                                <i class="fa-solid fa-trash text-white"></i>
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                             }

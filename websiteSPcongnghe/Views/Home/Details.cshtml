@@ -4,7 +4,7 @@
     var i = 0;
     var ha = ViewBag.ha as IQueryable<websiteSPcongnghe.Models.Hinhanh>;
     var ts = ViewBag.thongso as IQueryable<websiteSPcongnghe.Models.Thongso>;
-    var tt = (Thongtin)ViewBag.thongtin;
+    var tt = ViewBag.thongtin as IQueryable<websiteSPcongnghe.Models.Thongtin>;
 }
 
 <section class="banner_area" style="min-height: 100px;">
@@ -15,8 +15,8 @@
                     <h2>@Model.Tensanpham</h2>
                 </div>
                 <div class="page_link">
-                    <a href="index.html">Home</a>
-                    <a href="single-product.html">@Model.Tensanpham</a>
+                    <a href="/">Home</a>
+                    <a href="#">@Model.Tensanpham</a>
                 </div>
             </div>
         </div>
@@ -78,26 +78,6 @@
                             }
                         </li>
                     </ul>
-                    <div class="product_count">
-                        <label for="qty">Số lượng:</label>
-                        <input type="text"
-                                name="qty"
-                                id="sst"
-                                maxlength="12"
-                                value="1"
-                                title="Quantity:"
-                                class="input-text qty" />
-                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-                                class="increase items-count"
-                                type="button">
-                            <i class="lnr lnr-chevron-up"></i>
-                        </button>
-                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-                                class="reduced items-count"
-                                type="button">
-                            <i class="lnr lnr-chevron-down"></i>
-                        </button>
-                    </div>
                     <div class="card_area">
                         @if(Model.Soluong > 0)
                         {
@@ -146,30 +126,36 @@
                     <div class="table-responsive">
                         <table class="table">
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <h5>Trong hộp</h5>
-                                    </td>
-                                    <td>
-                                        <h5>@tt.Tronghop</h5>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <h5>Bảo hành</h5>
-                                    </td>
-                                    <td>
-                                        <h5>@tt.Baohanh</h5>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <h5>Chính sách</h5>
-                                    </td>
-                                    <td>
-                                        <h5>@tt.Chinhsach</h5>
-                                    </td>
-                                </tr>
+                                @foreach(var item in tt)
+                                {
+                                    if(item.SanphamID == Model.SanphamID)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <h5>Trong hộp</h5>
+                                            </td>
+                                            <td>
+                                                <h5>@item.Tronghop</h5>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h5>Bảo hành</h5>
+                                            </td>
+                                            <td>
+                                                <h5>@item.Baohanh</h5>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h5>Chính sách</h5>
+                                            </td>
+                                            <td>
+                                                <h5>@item.Chinhsach</h5>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
                             </tbody>
                         </table>
                     </div>
@@ -182,14 +168,17 @@
                         <table class="table">
                             <tbody>
                                 @foreach(var item in ts){
-                                    <tr>
-                                        <td>
-                                            <h5>@item.Tenthongso</h5>
-                                        </td>
-                                        <td>
-                                            <h5>@item.Noidung</h5>
-                                        </td>
-                                    </tr>
+                                    if(item.SanphamID == Model.SanphamID)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <h5>@item.Tenthongso</h5>
+                                            </td>
+                                            <td>
+                                                <h5>@item.Noidung</h5>
+                                            </td>
+                                        </tr>
+                                    }
                                 }
                             </tbody>
                         </table>

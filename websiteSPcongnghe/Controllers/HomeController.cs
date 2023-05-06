@@ -99,6 +99,8 @@ namespace websiteSPcongnghe.Controllers
                     return RedirectToAction("Index", "Home");
                 }
             }
+            ViewBag.lsp = _context.Loaisanpham;
+            ViewBag.dm = _context.Danhmuc.Include(d => d.Loaisanphams);
             return View(TaiKhoan);
         }
 
@@ -115,6 +117,8 @@ namespace websiteSPcongnghe.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register([Bind("TaikhoanID,Tendangnhap,Matkhau")] Taikhoan TaiKhoan)
         {
+            ViewBag.lsp = _context.Loaisanpham;
+            ViewBag.dm = _context.Danhmuc.Include(d => d.Loaisanphams);
             if (ModelState.IsValid)
             {
                 var check = _context.Taikhoan.FirstOrDefault(r => r.Tendangnhap == TaiKhoan.Tendangnhap);
@@ -339,7 +343,7 @@ namespace websiteSPcongnghe.Controllers
             return RedirectToAction(nameof(ListLoved));
         }
 
-        public IActionResult ViewLove()
+        public IActionResult ListLoved()
         {
             if (HttpContext.Session.GetInt32("_TaiKhoanID") != null)
             {
@@ -361,10 +365,17 @@ namespace websiteSPcongnghe.Controllers
             ViewBag.dm = _context.Danhmuc.Include(d => d.Loaisanphams);
             ViewBag.ha = _context.Hinhanh.Include(h => h.Sanphams);
 
-            ViewBag.thongtin = _context.Thongtin.FirstOrDefault(t => t.SanphamID == id);
+            ViewBag.thongtin = _context.Thongtin;
             ViewBag.thongso = _context.Thongso;
 
             return View(sp);
+        }
+
+        public async Task<IActionResult> Contact()
+        {
+            ViewBag.lsp = _context.Loaisanpham;
+            ViewBag.dm = _context.Danhmuc.Include(d => d.Loaisanphams);
+            return View();
         }
     }
 }

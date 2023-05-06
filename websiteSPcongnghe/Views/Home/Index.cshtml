@@ -112,9 +112,17 @@
                                     <a asp-action="AddToCartLove" asp-route-id="@item.SanphamID">
                                         <i class="fa-solid fa-heart"></i>
                                     </a>
-                                    <a asp-action="AddToCart" asp-route-id="@item.SanphamID">
-                                        <i class="fa-solid fa-cart-shopping"></i>
-                                    </a>
+                                    @if(item.Soluong <= 0)
+                                    {
+                                        <a class="disable">
+                                            <i class="fa-solid fa-cart-shopping"></i>
+                                        </a>
+                                    } else
+                                    {
+                                        <a asp-action="AddToCart" asp-route-id="@item.SanphamID">
+                                            <i class="fa-solid fa-cart-shopping"></i>
+                                        </a>
+                                    }
                                 </div>
                             </div>
                             <div class="product-btm">

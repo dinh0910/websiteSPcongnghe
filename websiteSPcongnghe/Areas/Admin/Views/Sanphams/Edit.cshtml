@@ -39,10 +39,10 @@
                 <input asp-for="Sale" class="form-control" oninput="tinh();" />
             </div>
             <div class="form-group">
-                <input asp-for="Thanhtien" class="form-control" disabled />
+                <input type="hidden" name="ThanhTien" asp-for="Thanhtien" class="form-control" />
             </div>
             <div class="form-group">
-                <input asp-for="Soluong" class="form-control" disabled />
+                <input asp-for="Soluong" class="form-control" type="hidden" />
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

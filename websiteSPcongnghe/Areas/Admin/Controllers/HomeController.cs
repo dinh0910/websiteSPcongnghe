@@ -83,6 +83,8 @@ namespace websiteSPcongnghe.Areas.Admin.Controllers
         public ActionResult Logout()
         {
             HttpContext.Session.Remove("_IDadmin");
+            HttpContext.Session.Remove("_TenTKAdmin");
+
             return RedirectToAction("Index", "Home");
         }
 
